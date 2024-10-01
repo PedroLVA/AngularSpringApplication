@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ILogin } from '../../_Interfaces/ilogin';
+import { AuthService } from '../../_Services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,19 +14,30 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class LoginComponent {
   form: FormGroup;
 
+  authService = inject(AuthService)
+
   constructor(){
     this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     })
   }
 
-  onSubmit(){
-    if(this.form.valid){
-      console.log(this.form.value);
-    }
-    else{
-      console.log("Errp")
+  onSubmit() {
+    const loginBody: ILogin = this.form.value;
+    if (this.form.valid) {
+      console.log(loginBody);
+      this.authService.login(loginBody).subscribe({
+        next: (response) => {
+          console.log('Login successful:', response); 
+         
+        },
+        error: (err) => {
+          console.error('Login failed:', err);
+        }
+      });
+    } else {
+      console.log("Erro");
     }
   }
   
