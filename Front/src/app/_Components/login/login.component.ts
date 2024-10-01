@@ -3,6 +3,7 @@ import { RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ILogin } from '../../_Interfaces/ilogin';
 import { AuthService } from '../../_Services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent {
   form: FormGroup;
 
   authService = inject(AuthService)
+  toastService = inject(ToastrService);
 
   constructor(){
     this.form = new FormGroup({
@@ -28,12 +30,10 @@ export class LoginComponent {
     if (this.form.valid) {
       console.log(loginBody);
       this.authService.login(loginBody).subscribe({
-        next: (response) => {
-          console.log('Login successful:', response); 
-         
-        },
+        next: () => 
+          this.toastService.success("Requisição realizada com sucesso"),
         error: (err) => {
-          console.error('Login failed:', err);
+          this.toastService.error("Requisição realizada com sucesso");
         }
       });
     } else {

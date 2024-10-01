@@ -7,7 +7,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiURL: string = "http://localhost:8080/auh"
+  private apiURL: string = "http://localhost:8080/auth"
 
   http = inject(HttpClient)
 
