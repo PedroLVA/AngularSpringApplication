@@ -1,13 +1,13 @@
-<main class="form-signin align">
+<main class="form-signin align" [formGroup]="form" (ngSubmit)="onSubmit()">
     <form class="p-3 shadow rounded-2">
         <h1 class="h3 mb-3 fw-normal text-center">Faça Login</h1>
         <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email">
             <label for="floatingInput">Endereço de Email</label>
         </div>
         <br>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
             <label for="floatingPassword">Senha</label>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
