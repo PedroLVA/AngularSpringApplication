@@ -31,7 +31,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET, "/product").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/product").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                        .anyRequest().authenticated() //wow
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
