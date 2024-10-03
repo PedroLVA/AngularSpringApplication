@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ILogin } from '../../_Interfaces/ilogin';
 import { AuthService } from '../../_Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { ILogin } from '../../_Interfaces/ilogin';
+import { IUserToken } from '../../_Interfaces/IUserToken';
 
 @Component({
   selector: 'app-login',
@@ -17,12 +18,15 @@ export class LoginComponent {
 
   authService = inject(AuthService)
   toastService = inject(ToastrService);
+  router = inject(Router)
 
   constructor(){
     this.form = new FormGroup({
-      email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      login: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(2)]),
     })
+
+    console.log(this.authService.userLoggedToken$)
   }
 
   onSubmit() {
@@ -30,10 +34,13 @@ export class LoginComponent {
     if (this.form.valid) {
       console.log(loginBody);
       this.authService.login(loginBody).subscribe({
-        next: () => 
-          this.toastService.success("Requisição realizada com sucesso"),
+        next: (response: IUserToken) => {
+          this.toastService.success("Login realizado com sucesso!")
+          this.router.navigate(['/home']);
+        }
+         ,
         error: (err) => {
-          this.toastService.error("Requisição realizada com sucesso");
+          this.toastService.error("Erro ao fazer login: " + err.error);
         }
       });
     } else {
