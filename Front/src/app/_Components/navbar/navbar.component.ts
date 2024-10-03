@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
 
   authService = inject(AuthService);
   userDetails: IUserDetails | null = null
+  router = inject(Router);
 
   //Joao stuff
   userLogged = signal<boolean>(false);
@@ -44,5 +45,6 @@ export class NavbarComponent implements OnInit {
   onExitClick(){
     this.authService.logout();
     this.userLogged.set(false);
+    this.router.navigate(['/home']);
   }
 }
