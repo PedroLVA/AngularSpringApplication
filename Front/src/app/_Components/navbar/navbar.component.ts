@@ -29,7 +29,8 @@ export class NavbarComponent implements OnInit {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const userToken: IUserToken = JSON.parse(storedUser);
-      this.authService.setUserLogged(userToken); // Update the BehaviorSubject with the stored token
+      this.authService.setUserLogged(userToken);
+      console.log("teste")
     }
   
     this.userTokenSubscription = this.authService.userLoggedToken$.subscribe(userToken => {
@@ -37,6 +38,9 @@ export class NavbarComponent implements OnInit {
       if (userToken) {
         this.userRole = userToken.role;
         this.login = userToken.login
+      } 
+      else{
+        this.userLogged.set(false);
       } 
     });
   }

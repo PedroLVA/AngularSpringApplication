@@ -26,13 +26,12 @@ export class LoginComponent {
       password: new FormControl('', [Validators.required, Validators.minLength(2)]),
     })
 
-    console.log(this.authService.userLoggedToken$)
+
   }
 
   onSubmit() {
     const loginBody: ILogin = this.form.value;
     if (this.form.valid) {
-      console.log(loginBody);
       this.authService.login(loginBody).subscribe({
         next: (response: IUserToken) => {
           this.toastService.success("Login realizado com sucesso!")

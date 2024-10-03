@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AuthService } from '../../_Services/auth.service';
 import { IUserDetails } from '../../_Interfaces/IUserDetails';
 import { Subscription } from 'rxjs';
@@ -15,10 +15,10 @@ export class HomeComponent implements OnInit {
   authService = inject(AuthService);
   userDetails: IUserDetails | null = null
 
-  userLogged$ = this.authService.userLoggedToken$
+ 
 
   //Joao stuff
-  userLogged: boolean = false;
+  userLogged = signal<boolean>(false);;
   userRole!: string;
   login!: string;
 
@@ -32,10 +32,13 @@ export class HomeComponent implements OnInit {
     }
   
     this.userTokenSubscription = this.authService.userLoggedToken$.subscribe(userToken => {
-      this.userLogged = !!userToken;
+      this.userLogged.set(true);
       if (userToken) {
         this.userRole = userToken.role;
         this.login = userToken.login
+      }
+      else{
+        this.userLogged.set(false);
       } 
     });
   }
