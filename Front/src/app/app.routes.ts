@@ -21,5 +21,10 @@ export const routes: Routes = [
         path: 'produtos',
         component: ProdutosComponent,
     },
+    {
+        path: 'adicionar/produto',
+        component: HomeComponent,
+    },
+
 
 ];

@@ -9,9 +9,12 @@
       <li class="nav-item"><a class="nav-link" routerLink="home" routerLinkActive="active">Home</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="produtos" routerLinkActive="active">Produtos</a></li>
       
-      
+     
       
       @if(userLogged()){
+        @if(userRole === "ADMIN"){
+          <li class="nav-item"><a class="nav-link" routerLink="adicionar/produto" routerLinkActive="active">Adicionar</a></li>
+        }
         <div class="dropdown">
           <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
               aria-expanded="false">
@@ -22,6 +25,8 @@
           </ul>
       </div>
       }
+       
+     
       @else{
         <li class="nav-item">
           <button class="btn btn-primary" routerLink="login">Entrar</button>
