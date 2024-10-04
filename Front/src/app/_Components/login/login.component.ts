@@ -3,7 +3,7 @@ import { Router, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/r
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../_Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { ILogin } from '../../_Interfaces/ilogin';
+import { ilogin } from '../../_Interfaces/ilogin';
 import { IUserToken } from '../../_Interfaces/IUserToken';
 
 @Component({
@@ -30,7 +30,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    const loginBody: ILogin = this.form.value;
+    const loginBody: ilogin = this.form.value;
     if (this.form.valid) {
       this.authService.login(loginBody).subscribe({
         next: (response: IUserToken) => {

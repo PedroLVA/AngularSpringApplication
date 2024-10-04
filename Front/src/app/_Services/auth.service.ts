@@ -2,9 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { ILogin } from '../_Interfaces/ilogin';
 import { IUserToken } from '../_Interfaces/IUserToken';
 import { IUserDetails } from '../_Interfaces/IUserDetails';
+import { ilogin } from '../_Interfaces/ilogin';
+
+
+
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +30,7 @@ export class AuthService {
     localStorage.clear();
   }
 
-  login(loginBody: ILogin): Observable<any> { 
+  login(loginBody: ilogin): Observable<any> { 
     return this.http.post<any>(`${this.apiURL}/login`, loginBody).pipe(
       map((response: IUserToken) => {
         if(response){

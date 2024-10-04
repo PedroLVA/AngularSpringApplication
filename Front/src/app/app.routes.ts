@@ -3,6 +3,7 @@ import { HomeComponent } from './_Components/home/home.component';
 import { LoginComponent } from './_Components/login/login.component';
 import { RegisterComponent } from './_Components/register/register.component';
 import { ProdutosComponent } from './_Components/produtos/produtos.component';
+import { AdicionarProdutoComponent } from './_Components/adicionar-produto/adicionar-produto.component';
 
 export const routes: Routes = [
     {
@@ -23,7 +24,7 @@ export const routes: Routes = [
     },
     {
         path: 'adicionar/produto',
-        component: HomeComponent,
+        component: AdicionarProdutoComponent,
     },
 
 

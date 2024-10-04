@@ -1,20 +1,21 @@
 import { Component, inject } from '@angular/core';
-import { ILogin } from '../../_Interfaces/ilogin';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../_Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { IUserToken } from '../../_Interfaces/IUserToken';
+import { CurrencyPipe } from '@angular/common';
+import { ilogin } from '../../_Interfaces/ilogin';
+
 
 @Component({
   selector: 'app-adicionar-produto',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CurrencyPipe],
   templateUrl: './adicionar-produto.component.html',
   styleUrl: './adicionar-produto.component.scss'
 })
 export class AdicionarProdutoComponent {
-
   form: FormGroup;
 
   authService = inject(AuthService)
@@ -23,28 +24,48 @@ export class AdicionarProdutoComponent {
 
   constructor(){
     this.form = new FormGroup({
-      login: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      product: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      description: new FormControl('', [Validators.required, Validators.minLength(2)]),
     })
 
 
   }
 
   onSubmit() {
-    const loginBody: ILogin = this.form.value;
-    if (this.form.valid) {
-      this.authService.login(loginBody).subscribe({
-        next: (response: IUserToken) => {
-          this.toastService.success("Login realizado com sucesso!")
-          this.router.navigate(['/home']);
-        }
-         ,
-        error: (err) => {
-          this.toastService.error("Erro ao fazer login: " + err.error);
-        }
-      });
-    } else {
-      console.log("Erro");
+    console.log(this.form.value)
+  }
+
+  //gpt
+
+
+  formatCurrency() {
+    const value = this.form.get('price')?.value;
+    if (value) {
+      const formattedValue = this.formatToCurrency(value);
+      this.form.get('price')?.setValue(formattedValue);
     }
+  }
+
+  // Method to remove formatting when input is focused
+  removeCurrencyFormatting() {
+    const value = this.form.get('price')?.value;
+    if (value) {
+      const numericValue = value.replace(/[^\d.-]/g, ''); // Remove formatting
+      this.form.get('price')?.setValue(numericValue);
+    }
+  }
+
+  // Method to update the value with formatting on input
+  updateValue(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const numericValue = inputElement.value.replace(/[^\d.-]/g, ''); // Clean the input
+    this.form.get('price')?.setValue(numericValue);
+  }
+
+  // Helper method to format a number to currency
+  private formatToCurrency(value: string): string {
+    const numberValue = parseFloat(value);
+    return isNaN(numberValue) ? '' : numberValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 }
