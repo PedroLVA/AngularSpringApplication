@@ -5,6 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 import { CurrencyPipe } from '@angular/common';
+import { IProduct } from '../../_Interfaces/IProduct';
+import { ProdutosService } from '../../_Services/produtos.service';
+import { IProductRegister } from '../../_Interfaces/IProductRegister';
 
 
 
@@ -21,12 +24,13 @@ export class AdicionarProdutoComponent {
   authService = inject(AuthService);
   toastService = inject(ToastrService);
   router = inject(Router);
+  productService = inject(ProdutosService);
   
 
   constructor(){
     this.form = new FormGroup({
-      product: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      name: new FormControl('', [Validators.required]),
+      price_in_cents: new FormControl('', [Validators.required, Validators.minLength(2)]),
       description: new FormControl('', [Validators.required, Validators.minLength(2)]),
     })
 
@@ -34,39 +38,29 @@ export class AdicionarProdutoComponent {
   }
 
   onSubmit() {
-    console.log(this.form.value)
   }
 
-  //gpt
+  addNewProduct(){
+    
+      const product: IProductRegister = this.form.value;
 
+      if (product.price_in_cents) {
+        product.price_in_cents = product.price_in_cents * 100;
+      }
 
-  formatCurrency() {
-    const value = this.form.get('price')?.value;
-    if (value) {
-      const formattedValue = this.formatToCurrency(value);
-      this.form.get('price')?.setValue(formattedValue);
-    }
+      this.productService.addProduct(product).subscribe({
+        next: () => {
+            this.toastService.success('Produto adicionado com sucesso!');
+            this.form.reset();
+        },
+        error: (erro) => {
+            this.toastService.error('Erro ao adicionar produto!' + erro.error);
+        }
+    });
   }
 
-  // Method to remove formatting when input is focused
-  removeCurrencyFormatting() {
-    const value = this.form.get('price')?.value;
-    if (value) {
-      const numericValue = value.replace(/[^\d.-]/g, ''); // Remove formatting
-      this.form.get('price')?.setValue(numericValue);
-    }
-  }
 
-  // Method to update the value with formatting on input
-  updateValue(event: Event) {
-    const inputElement = event.target as HTMLInputElement;
-    const numericValue = inputElement.value.replace(/[^\d.-]/g, ''); // Clean the input
-    this.form.get('price')?.setValue(numericValue);
-  }
 
-  // Helper method to format a number to currency
-  private formatToCurrency(value: string): string {
-    const numberValue = parseFloat(value);
-    return isNaN(numberValue) ? '' : numberValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  }
+
+ 
 }

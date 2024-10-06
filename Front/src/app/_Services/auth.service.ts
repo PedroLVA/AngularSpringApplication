@@ -30,10 +30,10 @@ export class AuthService {
     localStorage.clear();
   }
 
-  login(loginBody: ilogin): Observable<any> { 
+  login(loginBody: ilogin): Observable<any> {
     return this.http.post<any>(`${this.apiURL}/login`, loginBody).pipe(
       map((response: IUserToken) => {
-        if(response){
+        if (response) {
           localStorage.setItem('user', JSON.stringify(response));
           this.setUserLogged(response);
         }
@@ -52,4 +52,18 @@ export class AuthService {
     return null;
   }
 
+  getToken(): string | null {
+    const user = localStorage.getItem('user');
+   
+    if (user) {
+      const userToken: IUserToken = JSON.parse(user);
+      const token = userToken.token; 
+      console.log("Retrieved token:", token);
+      return token;
+
+    }
+
+    return null; // Re
+
+  }
 }

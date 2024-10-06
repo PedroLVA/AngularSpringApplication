@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -31,8 +33,10 @@ public class ProductController {
         Product newProduct = new Product(data);
 
         repository.save(newProduct);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Produto cadastrado com sucesso!");
 
-        return ResponseEntity.ok("Produto cadastrado com sucesso!");
+        return ResponseEntity.ok(response);
 
     }
 

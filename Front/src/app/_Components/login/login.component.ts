@@ -5,11 +5,20 @@ import { AuthService } from '../../_Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ilogin } from '../../_Interfaces/ilogin';
 import { IUserToken } from '../../_Interfaces/IUserToken';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../../_Interceptor/auth.interceptor';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [RouterModule, RouterOutlet, RouterLinkActive, ReactiveFormsModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true // This allows multiple interceptors
+    }
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
