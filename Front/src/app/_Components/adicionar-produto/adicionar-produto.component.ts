@@ -1,11 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../_Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { IUserToken } from '../../_Interfaces/IUserToken';
+
 import { CurrencyPipe } from '@angular/common';
-import { ilogin } from '../../_Interfaces/ilogin';
+
 
 
 @Component({
@@ -18,9 +18,10 @@ import { ilogin } from '../../_Interfaces/ilogin';
 export class AdicionarProdutoComponent {
   form: FormGroup;
 
-  authService = inject(AuthService)
+  authService = inject(AuthService);
   toastService = inject(ToastrService);
-  router = inject(Router)
+  router = inject(Router);
+  
 
   constructor(){
     this.form = new FormGroup({
