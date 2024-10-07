@@ -22,5 +22,9 @@ export class ProdutosService {
   addProduct(product: IProductRegister): Observable<IProductRegister> {
     return this.http.post<any>(this.apiURL, product);
   }
+
+  deleteProduct(id: string){
+    return this.http.delete<any>(`${this.apiURL}/${id}`);
+  }
   
 }

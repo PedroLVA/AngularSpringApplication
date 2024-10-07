@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(authReq).pipe(
       catchError((error) => {
        
-        return throwError(error);
+        return throwError( () => error);
       })
     );
   }

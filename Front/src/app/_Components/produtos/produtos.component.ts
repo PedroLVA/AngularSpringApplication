@@ -37,4 +37,18 @@ export class ProdutosComponent implements OnInit {
     })
   }
 
+  onDelete(id: string){
+    this.productService.deleteProduct(id).subscribe({
+      next: () => {
+        const updatedProducts = this.products()?.filter(product => product.id !== id);
+        this.products.set(updatedProducts);
+
+        this.toastrService.success("Produto Deletado com sucesso!")
+      },
+      error: (err) => {
+        this.toastrService.error("Erro ao deletar o produto")
+      }
+    })
+  }
+
 }
