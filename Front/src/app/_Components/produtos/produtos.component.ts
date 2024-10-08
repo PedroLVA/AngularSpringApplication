@@ -7,13 +7,14 @@ import { AuthService } from '../../_Services/auth.service';
 import { IUserDetails } from '../../_Interfaces/IUserDetails';
 import { CurrencyPipe, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { RouterLink } from '@angular/router';
 
 registerLocaleData(localePt, 'pt-BR');
 
 @Component({
   selector: 'app-produtos',
   standalone: true,
-  imports: [SpinnerComponent, CurrencyPipe],
+  imports: [SpinnerComponent, CurrencyPipe, RouterLink],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   templateUrl: './produtos.component.html',
   styleUrl: './produtos.component.scss'

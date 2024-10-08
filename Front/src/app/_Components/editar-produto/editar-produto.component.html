@@ -1,6 +1,6 @@
 <main class="form-signin align" [formGroup]="form" (ngSubmit)="onSubmit()">
     <form class="p-3 shadow rounded-2">
-        <h1 class="h3 mb-3 fw-normal text-center">Adicionar um produto</h1>
+        <h1 class="h3 mb-3 fw-normal text-center">Editar Produto</h1>
         <div class="form-floating">
             <input type="text" class="form-control" id="floatingInput" placeholder="Nome do produto"
                 formControlName="name">
@@ -22,8 +22,7 @@
         </div>
 
         <br>
-        <button class="w-100 btn btn-lg btn-success" type="submit" (click)="addNewProduct()">Adicionar</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" (click)="addNewProduct()">Adicionar</button>
 
-       
     </form>
 </main>
