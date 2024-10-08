@@ -30,7 +30,6 @@ export class NavbarComponent implements OnInit {
     if (storedUser) {
       const userToken: IUserToken = JSON.parse(storedUser);
       this.authService.setUserLogged(userToken);
-      console.log("teste")
     }
   
     this.userTokenSubscription = this.authService.userLoggedToken$.subscribe(userToken => {

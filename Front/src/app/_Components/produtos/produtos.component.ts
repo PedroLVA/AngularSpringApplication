@@ -1,13 +1,20 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, LOCALE_ID, OnInit, signal } from '@angular/core';
 import { ProdutosService } from '../../_Services/produtos.service';
 import { IProduct } from '../../_Interfaces/IProduct';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerComponent } from "../shared/spinner/spinner.component";
+import { AuthService } from '../../_Services/auth.service';
+import { IUserDetails } from '../../_Interfaces/IUserDetails';
+import { CurrencyPipe, registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt, 'pt-BR');
 
 @Component({
   selector: 'app-produtos',
   standalone: true,
-  imports: [SpinnerComponent],
+  imports: [SpinnerComponent, CurrencyPipe],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   templateUrl: './produtos.component.html',
   styleUrl: './produtos.component.scss'
 })
@@ -18,11 +25,14 @@ export class ProdutosComponent implements OnInit {
  
   productService = inject(ProdutosService);
   toastrService = inject(ToastrService);
+  authService = inject(AuthService);
+  userDetails: IUserDetails | null = this.authService.getUserDetails();
 
   constructor(){
    
   }
   ngOnInit(): void {
+    console.log(this.userDetails)
     this.loading.set(true)
     this.productService.getAllProducts().subscribe({
       next: (response) =>{
