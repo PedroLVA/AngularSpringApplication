@@ -3,11 +3,12 @@ import { AuthService } from '../../_Services/auth.service';
 import { IUserDetails } from '../../_Interfaces/IUserDetails';
 import { Subscription } from 'rxjs';
 import { IUserToken } from '../../_Interfaces/IUserToken';
+import { ModalComponent } from "../shared/modal/modal.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [ModalComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

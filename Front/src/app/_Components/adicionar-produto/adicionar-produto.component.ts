@@ -9,13 +9,14 @@ import { IProduct } from '../../_Interfaces/IProduct';
 import { ProdutosService } from '../../_Services/produtos.service';
 import { IProductRegister } from '../../_Interfaces/IProductRegister';
 import { switchMap } from 'rxjs';
+import { ModalComponent } from "../shared/modal/modal.component";
 
 
 
 @Component({
   selector: 'app-adicionar-produto',
   standalone: true,
-  imports: [ReactiveFormsModule, CurrencyPipe],
+  imports: [ReactiveFormsModule, CurrencyPipe, ModalComponent],
   templateUrl: './adicionar-produto.component.html',
   styleUrl: './adicionar-produto.component.scss'
 })

@@ -8,13 +8,14 @@ import { IUserDetails } from '../../_Interfaces/IUserDetails';
 import { CurrencyPipe, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { Router, RouterLink } from '@angular/router';
+import { ModalComponent } from "../shared/modal/modal.component";
 
 registerLocaleData(localePt, 'pt-BR');
 
 @Component({
   selector: 'app-produtos',
   standalone: true,
-  imports: [SpinnerComponent, CurrencyPipe, RouterLink],
+  imports: [SpinnerComponent, CurrencyPipe, RouterLink, ModalComponent],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   templateUrl: './produtos.component.html',
   styleUrl: './produtos.component.scss'
@@ -28,10 +29,11 @@ export class ProdutosComponent implements OnInit {
   toastrService = inject(ToastrService);
   authService = inject(AuthService);
   userDetails: IUserDetails | null = this.authService.getUserDetails();
+  isModalVisible = false;
+  productIdToDelete: string | null = null;
+  productNameToDelete: string | null = null;
 
-  constructor(){
-   
-  }
+
   ngOnInit(): void {
     console.log(this.userDetails)
     this.loading.set(true)
@@ -60,6 +62,17 @@ export class ProdutosComponent implements OnInit {
         this.toastrService.error("Erro ao deletar o produto")
       }
     })
+  }
+
+  openModal(productId: string, productName: string) {
+    this.productIdToDelete = productId; 
+    this.productNameToDelete = productName;
+    this.isModalVisible = true; 
+  }
+
+  closeModal() {
+    this.isModalVisible = false;
+    this.productIdToDelete = null;
   }
   
   onEditClick(id: string){
