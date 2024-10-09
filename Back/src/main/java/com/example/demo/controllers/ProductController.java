@@ -27,6 +27,16 @@ public class ProductController {
         return ResponseEntity.ok(allProducts);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable String id) {
+        var product = repository.findById(id);
+        if (product.isPresent()) {
+            return ResponseEntity.ok(product.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity registerProduct(@RequestBody @Validated RequestProduct data){
 
@@ -48,6 +58,7 @@ public class ProductController {
             Product product = optionalProduct.get();
             product.setName(data.name());
             product.setPrice_in_cents(data.price_in_cents());
+            product.setDescription(data.description());
             return ResponseEntity.ok(product);
         } else {
             throw new EntityNotFoundException();

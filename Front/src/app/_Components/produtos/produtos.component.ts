@@ -7,7 +7,7 @@ import { AuthService } from '../../_Services/auth.service';
 import { IUserDetails } from '../../_Interfaces/IUserDetails';
 import { CurrencyPipe, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -23,7 +23,7 @@ export class ProdutosComponent implements OnInit {
   
   products = signal<IProduct[] | undefined>(undefined);
   loading = signal<boolean>(false);
- 
+  router = inject(Router);
   productService = inject(ProdutosService);
   toastrService = inject(ToastrService);
   authService = inject(AuthService);
@@ -59,6 +59,12 @@ export class ProdutosComponent implements OnInit {
       error: (err) => {
         this.toastrService.error("Erro ao deletar o produto")
       }
+    })
+  }
+  
+  onEditClick(id: string){
+    this.router.navigate(['/editar/produto/', id], {
+      replaceUrl: true
     })
   }
 

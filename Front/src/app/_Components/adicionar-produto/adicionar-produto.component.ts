@@ -1,13 +1,14 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../_Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CurrencyPipe } from '@angular/common';
 import { IProduct } from '../../_Interfaces/IProduct';
 import { ProdutosService } from '../../_Services/produtos.service';
 import { IProductRegister } from '../../_Interfaces/IProductRegister';
+import { switchMap } from 'rxjs';
 
 
 
@@ -18,16 +19,17 @@ import { IProductRegister } from '../../_Interfaces/IProductRegister';
   templateUrl: './adicionar-produto.component.html',
   styleUrl: './adicionar-produto.component.scss'
 })
-export class AdicionarProdutoComponent {
+export class AdicionarProdutoComponent{
   form: FormGroup;
 
   authService = inject(AuthService);
   toastService = inject(ToastrService);
   router = inject(Router);
   productService = inject(ProdutosService);
-  
+  activatedRoute = inject(ActivatedRoute);
 
-  constructor(){
+
+  constructor() {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       price_in_cents: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -36,31 +38,34 @@ export class AdicionarProdutoComponent {
 
 
   }
+  
 
   onSubmit() {
   }
 
-  addNewProduct(){
-    
-      const product: IProductRegister = this.form.value;
+  addNewProduct() {
 
-      if (product.price_in_cents) {
-        product.price_in_cents = product.price_in_cents * 100;
+    const product: IProductRegister = this.form.value;
+
+    if (product.price_in_cents) {
+      product.price_in_cents = product.price_in_cents * 100;
+    }
+
+    this.productService.addProduct(product).subscribe({
+      next: () => {
+        this.toastService.success('Produto adicionado com sucesso!');
+        this.form.reset();
+      },
+      error: (erro) => {
+        this.toastService.error('Erro ao adicionar produto!' + erro.error);
       }
-
-      this.productService.addProduct(product).subscribe({
-        next: () => {
-            this.toastService.success('Produto adicionado com sucesso!');
-            this.form.reset();
-        },
-        error: (erro) => {
-            this.toastService.error('Erro ao adicionar produto!' + erro.error);
-        }
     });
   }
+}
+
 
 
 
 
  
-}
+
