@@ -5,8 +5,14 @@ import { RegisterComponent } from './_Components/register/register.component';
 import { ProdutosComponent } from './_Components/produtos/produtos.component';
 import { AdicionarProdutoComponent } from './_Components/adicionar-produto/adicionar-produto.component';
 import { EditarProdutoComponent } from './_Components/editar-produto/editar-produto.component';
+import { adminGuard } from './_Guards/admin.guard';
+import { NonAuthorizedComponent } from './_Components/shared/non-authorized/non-authorized.component';
 
 export const routes: Routes = [
+    {
+        path: '',
+        component: HomeComponent,
+    },
     {
         path: 'home',
         component: HomeComponent,
@@ -26,10 +32,17 @@ export const routes: Routes = [
     {
         path: 'adicionar/produto',
         component: AdicionarProdutoComponent,
+        canActivate: [adminGuard]
     },
     {
         path: 'editar/produto',
         component: EditarProdutoComponent,
+        canActivate: [adminGuard]
+    },
+    {
+        path: 'not-authorized',
+        component: NonAuthorizedComponent,
+        
     },
 
 
