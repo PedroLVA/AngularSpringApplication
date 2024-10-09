@@ -1,27 +1,33 @@
-<div class="dropdown">
-    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-        aria-expanded="false">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-filter"
-            viewBox="0 0 16 16">
-            <path
-                d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
-        </svg> Filtrar por
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <option class="dropdown-item " value="0">Action</option>
-        <option class="dropdown-item hover-bg-primary" value="1">Another action</option>
-        <option class="dropdown-item hover-bg-primary" value="2">Something else here</option>
-    </ul>
+<div class="d-flex align-items-center">
+    <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-filter"
+                viewBox="0 0 16 16">
+                <path
+                    d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
+            </svg> Filtrar por
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <option class="dropdown-item " value="0">Preço crescente</option>
+            <option class="dropdown-item hover-bg-primary" value="1">Preço decrescente</option>
+            <option class="dropdown-item hover-bg-primary" value="2">Antigo</option>
+            <option class="dropdown-item hover-bg-primary" value="2">Novo</option>
+        </ul>
+    </div>
+    <p class="mb-0 ms-1">Total de produtos: {{ productCount }}</p>
 </div>
+
 
 <div class="container mt-4">
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Price</th>
+                    <th scope="col">Nome do Produto</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Preço</th>
+
                     @if(userDetails?.role === "ADMIN"){
                     <th scope="col">Ações</th>
                     }
@@ -34,6 +40,7 @@
                     <td> {{product.name}} </td>
                     <td> {{product.description}}</td>
                     <td> {{product.price_in_cents / 100 | currency:'BRL'}}</td>
+
                     @if(userDetails?.role === "ADMIN"){
                     <td>
                         <div class="d-flex gap-2">

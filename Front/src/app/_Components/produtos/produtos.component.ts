@@ -81,4 +81,8 @@ export class ProdutosComponent implements OnInit {
     })
   }
 
+  get productCount(): number {
+    return this.products()?.length || 0;
+  }
+
 }

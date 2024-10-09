@@ -20,4 +20,42 @@
   button {
     margin: 0 10px;
   }
+
+  /* Modal Fade-in and Scale Animation */
+@keyframes modalFadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Modal Fade-out and Scale Animation */
+  @keyframes modalFadeOut {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+  
+  /* Apply animation to modal */
+  .custom-modal-animation .modal-dialog {
+    animation: modalFadeIn 0.4s ease-out forwards;
+  }
+  
+  .modal.fade.custom-modal-animation.show .modal-dialog {
+    animation: modalFadeIn 0.4s ease-out forwards;
+  }
+  
+  .modal.fade.custom-modal-animation .modal-dialog {
+    animation: modalFadeOut 0.4s ease-in forwards;
+  }
+  
   
