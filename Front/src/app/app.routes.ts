@@ -7,6 +7,7 @@ import { AdicionarProdutoComponent } from './_Components/adicionar-produto/adici
 import { EditarProdutoComponent } from './_Components/editar-produto/editar-produto.component';
 import { adminGuard } from './_Guards/admin.guard';
 import { NonAuthorizedComponent } from './_Components/shared/non-authorized/non-authorized.component';
+import { userGuard } from './_Guards/user.guard';
 
 export const routes: Routes = [
     {
@@ -28,6 +29,7 @@ export const routes: Routes = [
     {
         path: 'produtos',
         component: ProdutosComponent,
+        canActivate: [userGuard]
     },
     {
         path: 'adicionar/produto',
