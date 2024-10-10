@@ -8,6 +8,7 @@ import { EditarProdutoComponent } from './_Components/editar-produto/editar-prod
 import { adminGuard } from './_Guards/admin.guard';
 import { NonAuthorizedComponent } from './_Components/shared/non-authorized/non-authorized.component';
 import { userGuard } from './_Guards/user.guard';
+import { NotFoundComponent } from './_Components/shared/not-found/not-found.component';
 
 export const routes: Routes = [
     {
@@ -47,5 +48,6 @@ export const routes: Routes = [
         
     },
 
+    { path: '**', component: NotFoundComponent},
 
 ];
