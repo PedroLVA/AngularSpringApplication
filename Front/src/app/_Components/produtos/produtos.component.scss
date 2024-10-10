@@ -1,7 +1,8 @@
-option:hover{
+
+.dropdown-item:hover{
     cursor: pointer;
     background-color: #007bff;
-    color: white;
+    color: white !important;
 }
 .btn-dropdown{
     min-width: 11vw;
