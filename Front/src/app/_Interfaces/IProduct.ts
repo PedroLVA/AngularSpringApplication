@@ -4,4 +4,5 @@ export interface IProduct {
     price_in_cents: number;
     description: string;
     active: boolean;
+    createdAt: Date
 }

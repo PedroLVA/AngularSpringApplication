@@ -25,6 +25,7 @@
                     <th scope="col">Nome do Produto</th>
                     <th scope="col">Descrição</th>
                     <th scope="col">Preço</th>
+                    <th scope="col">Data Criação</th>
 
                     @if(userDetails?.role === "ADMIN"){
                     <th scope="col">Ações</th>
@@ -38,6 +39,7 @@
                     <td> {{product.name}} </td>
                     <td> {{product.description}}</td>
                     <td> {{product.price_in_cents / 100 | currency:'BRL'}}</td>
+                    <td> {{product.createdAt | date:'short'}}</td>
 
                     @if(userDetails?.role === "ADMIN"){
                     <td>

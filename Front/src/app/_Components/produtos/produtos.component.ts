@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SpinnerComponent } from "../shared/spinner/spinner.component";
 import { AuthService } from '../../_Services/auth.service';
 import { IUserDetails } from '../../_Interfaces/IUserDetails';
-import { CurrencyPipe, registerLocaleData } from '@angular/common';
+import { CurrencyPipe, DatePipe, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { Router, RouterLink } from '@angular/router';
 import { ModalComponent } from "../shared/modal/modal.component";
@@ -15,7 +15,7 @@ registerLocaleData(localePt, 'pt-BR');
 @Component({
   selector: 'app-produtos',
   standalone: true,
-  imports: [SpinnerComponent, CurrencyPipe, RouterLink, ModalComponent],
+  imports: [SpinnerComponent, CurrencyPipe, RouterLink, ModalComponent, DatePipe],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   templateUrl: './produtos.component.html',
   styleUrl: './produtos.component.scss'
@@ -42,6 +42,7 @@ export class ProdutosComponent implements OnInit {
       next: (response) =>{
         this.products.set(response) ;
         this.loading.set(false)
+        console.log(this.products());
       },
       error: (err) => {
         this.toastrService.error("Houve um erro ao recuperar os produtos:\n" + err.error)
