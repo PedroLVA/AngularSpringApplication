@@ -10,9 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/product")
@@ -22,8 +20,30 @@ public class ProductController {
     private ProductRepository repository;
 
     @GetMapping
-    public ResponseEntity getAllProducts(){
+    public ResponseEntity<List<Product>> getAllProducts(
+            @RequestParam(value = "sort", required = false) String sort) {
+
+        // Fetch all active products
         var allProducts = repository.findAllByActiveTrue();
+
+        // Apply sorting if a 'sort' parameter is provided
+        if (sort != null) {
+            switch (sort) {
+                case "asc":
+                    allProducts.sort(Comparator.comparing(Product::getPrice_in_cents)); // Price ascending
+                    break;
+                case "desc":
+                    allProducts.sort(Comparator.comparing(Product::getPrice_in_cents).reversed()); // Price descending
+                    break;
+                case "old":
+                    allProducts.sort(Comparator.comparing(Product::getCreatedAt)); // Older first
+                    break;
+                case "new":
+                    allProducts.sort(Comparator.comparing(Product::getCreatedAt).reversed()); // Newer first
+                    break;
+            }
+        }
+
         return ResponseEntity.ok(allProducts);
     }
 

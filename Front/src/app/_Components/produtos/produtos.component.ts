@@ -32,6 +32,7 @@ export class ProdutosComponent implements OnInit {
   isModalVisible = false;
   productIdToDelete: string | null = null;
   productNameToDelete: string | null = null;
+  filtrarPorNome: string = "Filtrar por...";
 
 
   ngOnInit(): void {
@@ -83,6 +84,25 @@ export class ProdutosComponent implements OnInit {
 
   get productCount(): number {
     return this.products()?.length || 0;
+  }
+
+  //Filter do produto
+
+  loadProducts(filter: string = ''): void {
+    this.productService.getAllProducts(filter).subscribe({
+      next: (response) => {
+        this.products.set(response);
+      },
+      error: (err) => {
+        this.toastrService.error("Houve um erro ao recuperar os produtos:\n" + err.error);
+      }
+    });
+  }
+
+  applyFilter(filter: string, nome: string): void {
+    // Call loadProducts with the selected filter
+    this.filtrarPorNome = nome;
+    this.loadProducts(filter);
   }
 
 }

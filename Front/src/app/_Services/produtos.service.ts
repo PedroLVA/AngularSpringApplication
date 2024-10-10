@@ -16,9 +16,12 @@ export class ProdutosService {
 
   constructor() { }
 
-  getAllProducts(): Observable<IProduct[]>{
-    return this.http.get<IProduct[]>(this.apiURL)
+  getAllProducts(sort: string = ''): Observable<IProduct[]> {
+    // If the sort parameter is not provided, do not append it to the query
+    const queryParam = sort ? `?sort=${sort}` : '';
+    return this.http.get<IProduct[]>(`${this.apiURL}${queryParam}`);
   }
+  
 
   getProductById(id: string): Observable<IProduct>{
     return this.http.get<IProduct>(`${this.apiURL}/${id}`)
