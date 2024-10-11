@@ -5,7 +5,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { IUserToken } from '../_Interfaces/IUserToken';
 import { IUserDetails } from '../_Interfaces/IUserDetails';
 import { ilogin } from '../_Interfaces/ilogin';
-
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class AuthService {
 
   private userLogged = new BehaviorSubject<IUserToken | null>(null);
   userLoggedToken$ = this.userLogged.asObservable();
+  private tokenExpirationTimer: any;
 
   setUserLogged(userToken: IUserToken) {
     this.userLogged.next(userToken);
@@ -48,18 +49,56 @@ export class AuthService {
     return null;
   }
 
+  //token related
   getToken(): string | null {
     const user = localStorage.getItem('user');
-   
+
     if (user) {
       const userToken: IUserToken = JSON.parse(user);
-      const token = userToken.token; 
-      console.log("Retrieved token:", token);
+      const token = userToken.token;
       return token;
-
     }
 
-    return null; 
+    return null;
 
+  }
+
+  private getTokenExpirationTime(token: string): number {
+    const decodedToken: any = jwtDecode(token);
+    return decodedToken.exp * 1000;  
+  }
+
+  monitorTokenExpiration() {
+    const token = this.getToken();
+    if (!token) return;
+
+    const expirationTime = this.getTokenExpirationTime(token);
+    const currentTime = new Date().getTime();
+    const timeUntilExpiration = expirationTime - currentTime;
+
+    if (timeUntilExpiration > 0) {
+      this.tokenExpirationTimer = setTimeout(() => {
+        this.logout();
+        window.location.href = '/login'; 
+      }, timeUntilExpiration);
+    } else {
+      this.logout();
+      window.location.href = '/login';
+    }
+  }
+
+  startTokenMonitoring(interval: number = 60000) {  
+    setInterval(() => {
+      const token = this.getToken();
+      if (token) {
+        const expirationTime = this.getTokenExpirationTime(token);
+        const currentTime = new Date().getTime();
+
+        if (expirationTime <= currentTime) {
+          this.logout();
+          window.location.href = '/login'; 
+        }
+      }
+    }, interval);  
   }
 }
