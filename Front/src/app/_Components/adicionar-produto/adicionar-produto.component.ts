@@ -38,6 +38,8 @@ export class AdicionarProdutoComponent {
 
   }
 
+  //getters para validation
+
   get nameIsInvalid() {
     return this.form.controls['name'].touched && this.form.controls['name'].dirty && this.form.controls['name'].invalid;
   }

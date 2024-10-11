@@ -23,7 +23,7 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProducts(
             @RequestParam(value = "sort", required = false) String sort) {
 
-     
+
         var allProducts = repository.findAllByActiveTrue();
 
 
