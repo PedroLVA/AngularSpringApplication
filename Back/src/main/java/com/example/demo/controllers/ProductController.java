@@ -23,10 +23,10 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProducts(
             @RequestParam(value = "sort", required = false) String sort) {
 
-        // Fetch all active products
+     
         var allProducts = repository.findAllByActiveTrue();
 
-        // Apply sorting if a 'sort' parameter is provided
+
         if (sort != null) {
             switch (sort) {
                 case "asc":

@@ -71,7 +71,7 @@ export class EditarProdutoComponent implements OnInit {
   onSubmit() {
     if(this.foundProduct){
       const product: IProductEdit = {
-        id: this.foundProduct?.id, // Include the product ID in the object
+        id: this.foundProduct?.id,
         name: this.form.value.name,
         price_in_cents:  this.form.value.price_in_cents * 100,
         description: this.form.value.description,

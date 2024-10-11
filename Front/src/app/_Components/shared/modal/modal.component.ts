@@ -16,12 +16,12 @@ export class ModalComponent {
 
   confirm() {
     this.confirmed.emit();
-    this.isVisible = false; // Hide modal after confirmation
+    this.isVisible = false; 
   }
 
   cancel() {
     this.canceled.emit();
-    this.isVisible = false; // Hide modal when canceled
+    this.isVisible = false; 
   }
   
 }
