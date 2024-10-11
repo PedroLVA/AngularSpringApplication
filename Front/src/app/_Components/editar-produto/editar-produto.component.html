@@ -2,24 +2,38 @@
     <form class="p-3 shadow rounded-2">
         <h1 class="h3 mb-3 fw-normal text-center">Editar Produto</h1>
         <div class="form-floating">
-            <input type="text" class="form-control" id="floatingInput" placeholder="Nome do produto"
+            <input
+                [ngClass]="{'is-invalid': form.controls['name'].touched && form.controls['name'].invalid && form.controls['name'].dirty}"
+                type="text" class="form-control" id="floatingInput" placeholder="Nome do produto"
                 formControlName="name">
             <label for="floatingInput">Nome do Produto</label>
         </div>
+        @if(nameIsInvalid){
+        <p class="text-danger mb-0">O nome precisa ser preenchido</p>
+        }
         <br>
 
 
         <div class="form-floating">
-            <input type="number" class="form-control" id="floatingPrice" placeholder="Preço" formControlName="price_in_cents">
+            <input
+                [ngClass]="{'is-invalid': form.controls['price_in_cents'].touched && form.controls['price_in_cents'].invalid && form.controls['price_in_cents'].dirty}"
+                type="price_in_cents" class="form-control" id="floatingPrice" placeholder="Preço"
+                formControlName="price_in_cents">
             <label for="floatingPrice">Preço</label>
         </div>
+        @if(priceIsInvalid){
+        <p class="text-danger mb-0">O preço precisa ser preenchido</p>
+        }
 
         <br>
         <div class="form-floating">
-            <textarea class="form-control" placeholder="Descrição" id="floatingTextarea" formControlName="description"
+            <textarea [ngClass]="{'is-invalid': form.controls['description'].touched && form.controls['description'].invalid && form.controls['description'].dirty}" class="form-control" placeholder="Descrição" id="floatingTextarea" formControlName="description"
                 style="height: 150px;"></textarea>
             <label for="floatingTextarea">Descrição</label>
         </div>
+        @if(descricaoIsInvalid){
+        <p class="text-danger mb-0">A descrição precisa ser preenchida</p>
+        }
 
         <br>
         <button class="w-100 btn btn-lg btn-primary" type="submit">Editar</button>

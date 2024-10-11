@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProdutosService } from '../../_Services/produtos.service';
 import { IProductRegister } from '../../_Interfaces/IProductRegister';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { switchMap } from 'rxjs';
 import { IProduct } from '../../_Interfaces/IProduct';
 import { IProductEdit } from '../../_Interfaces/IProductEdit';
@@ -13,7 +13,7 @@ import { IProductEdit } from '../../_Interfaces/IProductEdit';
 @Component({
   selector: 'app-editar-produto',
   standalone: true,
-  imports: [ReactiveFormsModule, CurrencyPipe],
+  imports: [ReactiveFormsModule, CurrencyPipe, CommonModule],
   templateUrl: './editar-produto.component.html',
   styleUrl: './editar-produto.component.scss'
 })
@@ -87,6 +87,18 @@ export class EditarProdutoComponent implements OnInit {
       });
     }
     
+  }
+
+  get nameIsInvalid() {
+    return this.form.controls['name'].touched && this.form.controls['name'].dirty && this.form.controls['name'].invalid;
+  }
+
+  get priceIsInvalid() {
+    return this.form.controls['price_in_cents'].touched && this.form.controls['price_in_cents'].dirty && this.form.controls['price_in_cents'].invalid;
+  }
+
+  get descricaoIsInvalid() {
+    return this.form.controls['description'].touched && this.form.controls['description'].dirty && this.form.controls['description'].invalid;
   }
 
   
