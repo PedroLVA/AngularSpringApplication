@@ -7,10 +7,6 @@ import { IUserDetails } from '../_Interfaces/IUserDetails';
 import { ilogin } from '../_Interfaces/ilogin';
 
 
-
-
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -63,7 +59,7 @@ export class AuthService {
 
     }
 
-    return null; // Re
+    return null; 
 
   }
 }
