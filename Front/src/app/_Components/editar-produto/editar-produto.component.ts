@@ -31,8 +31,8 @@ export class EditarProdutoComponent implements OnInit {
   constructor(){
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      price_in_cents: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      description: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      price_in_cents: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
     })
 
 
