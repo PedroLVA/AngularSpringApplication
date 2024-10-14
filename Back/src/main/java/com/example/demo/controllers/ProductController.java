@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.domain.product.Categories;
 import com.example.demo.domain.product.Product;
 import com.example.demo.repositories.ProductRepository;
 import com.example.demo.domain.product.RequestProduct;
@@ -79,6 +80,10 @@ public class ProductController {
             product.setName(data.name());
             product.setPrice_in_cents(data.price_in_cents());
             product.setDescription(data.description());
+
+            product.setCategory(data.category());
+            System.out.println(data.category());
+
             return ResponseEntity.ok(product);
         } else {
             throw new EntityNotFoundException();

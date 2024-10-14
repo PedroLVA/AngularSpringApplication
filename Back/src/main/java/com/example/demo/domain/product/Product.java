@@ -24,6 +24,8 @@ public class Product {
 
     private String description;
 
+    private Categories category;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -35,6 +37,7 @@ public class Product {
         this.price_in_cents = data.price_in_cents();
         this.active = true;
         this.description = data.description();
+        this.category = data.category();
     }
 
 

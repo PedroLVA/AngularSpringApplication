@@ -7,5 +7,6 @@ public record RequestProduct(
         String name,
         Integer price_in_cents,
         String description,
+        Categories category,
         LocalDateTime createdAt) {
 }

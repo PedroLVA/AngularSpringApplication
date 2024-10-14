@@ -67,6 +67,7 @@ export class AdicionarProdutoComponent {
           this.toastService.error('Erro ao adicionar produto!' + erro.error);
         }
       });
+      return;
     }
     this.toastService.error('O formulário é inválido, preencha antes de continuar.')
 

@@ -68,25 +68,6 @@ export class AuthService {
     return decodedToken.exp * 1000;  
   }
 
-  monitorTokenExpiration() {
-    const token = this.getToken();
-    if (!token) return;
-
-    const expirationTime = this.getTokenExpirationTime(token);
-    const currentTime = new Date().getTime();
-    const timeUntilExpiration = expirationTime - currentTime;
-
-    if (timeUntilExpiration > 0) {
-      this.tokenExpirationTimer = setTimeout(() => {
-        this.logout();
-        window.location.href = '/login'; 
-      }, timeUntilExpiration);
-    } else {
-      this.logout();
-      window.location.href = '/login';
-    }
-  }
-
   startTokenMonitoring(interval: number = 60000) {  
     setInterval(() => {
       const token = this.getToken();

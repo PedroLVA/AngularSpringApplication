@@ -29,7 +29,7 @@ export class ProdutosComponent implements OnInit {
   toastrService = inject(ToastrService);
   authService = inject(AuthService);
   userDetails: IUserDetails | null = this.authService.getUserDetails();
-  isModalVisible = false;
+  isModalVisible = signal<boolean>(false);
   productIdToDelete: string | null = null;
   productNameToDelete: string | null = null;
   filtrarPorNome: string = "Filtrar por...";
@@ -67,13 +67,14 @@ export class ProdutosComponent implements OnInit {
   }
 
   openModal(productId: string, productName: string) {
+    console.log('Opening modal for:', productId, productName);  
     this.productIdToDelete = productId; 
     this.productNameToDelete = productName;
-    this.isModalVisible = true; 
+    this.isModalVisible.set(true); 
   }
 
   closeModal() {
-    this.isModalVisible = false;
+    this.isModalVisible.set(false); 
     this.productIdToDelete = null;
   }
   
@@ -101,7 +102,7 @@ export class ProdutosComponent implements OnInit {
   }
 
   applyFilter(filter: string, nome: string): void {
-    // Call loadProducts with the selected filter
+    
     this.filtrarPorNome = nome;
     this.loadProducts(filter);
   }
