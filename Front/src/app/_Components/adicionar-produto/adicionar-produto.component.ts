@@ -10,6 +10,7 @@ import { ProdutosService } from '../../_Services/produtos.service';
 import { IProductRegister } from '../../_Interfaces/IProductRegister';
 import { switchMap } from 'rxjs';
 import { ModalComponent } from "../shared/modal/modal.component";
+import { ICategory } from '../../_Interfaces/ICategory';
 
 
 
@@ -20,7 +21,7 @@ import { ModalComponent } from "../shared/modal/modal.component";
   templateUrl: './adicionar-produto.component.html',
   styleUrl: './adicionar-produto.component.scss'
 })
-export class AdicionarProdutoComponent {
+export class AdicionarProdutoComponent implements OnInit {
   form: FormGroup;
 
   authService = inject(AuthService);
@@ -28,14 +29,24 @@ export class AdicionarProdutoComponent {
   router = inject(Router);
   productService = inject(ProdutosService);
   activatedRoute = inject(ActivatedRoute);
+  categories = signal<ICategory[]>([]);
 
   constructor() {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       price_in_cents: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
+      category: new FormControl('', [Validators.required]),
     })
 
+  }
+  ngOnInit(): void {
+    this.productService.getProductsCategories().subscribe({
+      next: (data) => {
+        this.categories.set(data);
+        console.log(data)
+      }
+    })
   }
 
   //getters para validation
@@ -50,6 +61,10 @@ export class AdicionarProdutoComponent {
 
   get descricaoIsInvalid() {
     return this.form.controls['description'].touched && this.form.controls['description'].dirty && this.form.controls['description'].invalid;
+  }
+
+  get categoryIsInvalid() {
+    return this.form.controls['category'].touched && this.form.controls['category'].dirty && this.form.controls['category'].invalid;
   }
 
   addNewProduct() {

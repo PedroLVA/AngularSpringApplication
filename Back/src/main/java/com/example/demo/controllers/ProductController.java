@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.domain.product.Categories;
+import com.example.demo.domain.product.CategoryDTO;
 import com.example.demo.domain.product.Product;
 import com.example.demo.repositories.ProductRepository;
 import com.example.demo.domain.product.RequestProduct;
@@ -12,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/product")
@@ -56,6 +58,14 @@ public class ProductController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<CategoryDTO>> getCategories() {
+        List<CategoryDTO> categories = Arrays.stream(Categories.values())
+                .map(category -> new CategoryDTO(category.name(), category.getCategory()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(categories); // Return them as the response
     }
 
     @PostMapping

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IProduct } from '../_Interfaces/IProduct';
 import { IProductRegister } from '../_Interfaces/IProductRegister';
 import { IProductEdit } from '../_Interfaces/IProductEdit';
+import { ICategory } from '../_Interfaces/ICategory';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class ProdutosService {
 
   getProductById(id: string): Observable<IProduct>{
     return this.http.get<IProduct>(`${this.apiURL}/${id}`)
+  }
+
+  getProductsCategories(): Observable<ICategory[]>{
+    return this.http.get<ICategory[]>(`${this.apiURL}/categories`)
   }
 
   addProduct(product: IProductRegister): Observable<IProductRegister> {
