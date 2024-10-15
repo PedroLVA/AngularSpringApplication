@@ -41,12 +41,7 @@ export class EditarProdutoComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.productService.getProductsCategories().subscribe({
-      next: (data) => {
-        this.categories.set(data);
-        console.log(data)
-      }
-    })
+    
 
     this.activatedRoute.paramMap
       .pipe(
@@ -77,6 +72,12 @@ export class EditarProdutoComponent implements OnInit {
           this.toastService.error("Error loading product: " + err.error)
         }
       });
+      this.productService.getProductsCategories().subscribe({
+        next: (data) => {
+          this.categories.set(data);
+          console.log(data)
+        }
+      })
 
      
   }

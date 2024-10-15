@@ -9,13 +9,14 @@ import { CurrencyPipe, DatePipe, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { Router, RouterLink } from '@angular/router';
 import { ModalComponent } from "../shared/modal/modal.component";
+import { PaginationComponent } from "../pagination/pagination.component";
 
 registerLocaleData(localePt, 'pt-BR');
 
 @Component({
   selector: 'app-produtos',
   standalone: true,
-  imports: [SpinnerComponent, CurrencyPipe, RouterLink, ModalComponent, DatePipe],
+  imports: [SpinnerComponent, CurrencyPipe, RouterLink, ModalComponent, DatePipe, PaginationComponent],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   templateUrl: './produtos.component.html',
   styleUrl: './produtos.component.scss'

@@ -70,13 +70,16 @@
                 }
 
             </tbody>
+           
             <app-modal [title]="'Deletar Produto'"
                 [message]="'Tem certeza que quer deletar o produto ' + productNameToDelete + '?'"
                 [isVisible]="isModalVisible()" (confirmed)="onDelete(productIdToDelete!)" (canceled)="closeModal()">
-
             </app-modal>
-
+            
         </table>
+        <div class="navigation-wrapper w-100">
+            <app-pagination></app-pagination>
+        </div>
         @if(loading()){
         <div class="container d-flex justify-content-center vw-80 position-absolute">
             <app-spinner></app-spinner>
