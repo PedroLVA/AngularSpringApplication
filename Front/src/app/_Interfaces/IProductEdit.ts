@@ -3,4 +3,5 @@ export interface IProductEdit {
     name: string;
     price_in_cents: number;
     description: string;
+    category: string;
 }

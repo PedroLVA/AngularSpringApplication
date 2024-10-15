@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../_Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
@@ -9,6 +9,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { switchMap } from 'rxjs';
 import { IProduct } from '../../_Interfaces/IProduct';
 import { IProductEdit } from '../../_Interfaces/IProductEdit';
+import { ICategory } from '../../_Interfaces/ICategory';
 
 @Component({
   selector: 'app-editar-produto',
@@ -27,17 +28,26 @@ export class EditarProdutoComponent implements OnInit {
   activatedRoute = inject(ActivatedRoute)
 
   foundProduct: IProduct | undefined;
+  categories = signal<ICategory[]>([]);
 
   constructor(){
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       price_in_cents: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
+      category: new FormControl('', [Validators.required]),
     })
 
 
   }
   ngOnInit(): void {
+    this.productService.getProductsCategories().subscribe({
+      next: (data) => {
+        this.categories.set(data);
+        console.log(data)
+      }
+    })
+
     this.activatedRoute.paramMap
       .pipe(
         switchMap((params) => {
@@ -58,6 +68,7 @@ export class EditarProdutoComponent implements OnInit {
             name: product.name,
             price_in_cents: product.price_in_cents / 100,
             description: product.description,
+            category: product.category
           });
           
           console.log('Product loaded:', product);  
@@ -66,6 +77,8 @@ export class EditarProdutoComponent implements OnInit {
           this.toastService.error("Error loading product: " + err.error)
         }
       });
+
+     
   }
 
   onSubmit() {
@@ -75,6 +88,7 @@ export class EditarProdutoComponent implements OnInit {
         name: this.form.value.name,
         price_in_cents:  this.form.value.price_in_cents * 100,
         description: this.form.value.description,
+        category: this.form.value.category,
       };
 
       this.productService.editProduct(product).subscribe({
