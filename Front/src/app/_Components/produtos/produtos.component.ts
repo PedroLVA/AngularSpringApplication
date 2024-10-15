@@ -10,6 +10,7 @@ import localePt from '@angular/common/locales/pt';
 import { Router, RouterLink } from '@angular/router';
 import { ModalComponent } from "../shared/modal/modal.component";
 import { PaginationComponent } from "../pagination/pagination.component";
+import { IPagination } from '../../_Interfaces/IPagination';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -37,21 +38,17 @@ export class ProdutosComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.userDetails)
-    this.loading.set(true)
-    this.productService.getAllProducts().subscribe({
-      next: (response) =>{
-        this.products.set(response) ;
-        this.loading.set(false)
-        console.log(this.products());
+    this.productService.getProductsPagination(0, 11).subscribe({
+      next: (response: IPagination ) => {
+        this.products.set(response.content);
+        
       },
-      error: (err) => {
-        this.toastrService.error("Houve um erro ao recuperar os produtos:\n" + err.error)
-        this.loading.set(false)
-      }
-      
-    })
+      error: (err) => console.error('Failed to load products', err)
+    });
+
   }
+
+
 
   onDelete(id: string){
     this.isModalVisible.set(false);

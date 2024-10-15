@@ -3,7 +3,7 @@ export interface IProduct {
     name: string;
     price_in_cents: number;
     description: string;
-    active: boolean;
     category: string;
+    active: boolean;
     createdAt: Date
 }

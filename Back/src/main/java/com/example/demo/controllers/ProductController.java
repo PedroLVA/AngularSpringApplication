@@ -1,13 +1,13 @@
 package com.example.demo.controllers;
 
-import com.example.demo.domain.product.Categories;
-import com.example.demo.domain.product.CategoryDTO;
-import com.example.demo.domain.product.Product;
+import com.example.demo.domain.product.*;
 import com.example.demo.repositories.ProductRepository;
-import com.example.demo.domain.product.RequestProduct;
+import com.example.demo.repositories.ProductRepositoryPage;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +22,25 @@ public class ProductController {
     @Autowired
     private ProductRepository repository;
 
+    @Autowired
+    private ProductRepositoryPage repositoryPage;
+
+    //Get pages
+    @GetMapping("/pages")
+    public ResponseEntity<PaginationResponseDTO> getAllProductsPage(@RequestParam int page, @RequestParam int size){
+        PageRequest pr = PageRequest.of(page, size);
+        Page<Product> productPage = repositoryPage.findAll(pr);
+        List<Product> listOfProduct = productPage.getContent();
+
+
+       return ResponseEntity.ok(new PaginationResponseDTO(productPage.getNumber(), productPage.getTotalPages(), productPage.getTotalElements(), listOfProduct, productPage.isLast()));
+    }
+
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts(
             @RequestParam(value = "sort", required = false) String sort) {
 
-
         var allProducts = repository.findAllByActiveTrue();
-
 
         if (sort != null) {
             switch (sort) {
