@@ -53,6 +53,7 @@ export class ProdutosComponent implements OnInit {
   }
 
   onDelete(id: string){
+    this.isModalVisible.set(false);
     this.productService.deleteProduct(id).subscribe({
       next: () => {
         const updatedProducts = this.products()?.filter(product => product.id !== id);
@@ -105,6 +106,10 @@ export class ProdutosComponent implements OnInit {
     
     this.filtrarPorNome = nome;
     this.loadProducts(filter);
+  }
+
+  getCategoryName(productCategory: string){
+    
   }
 
 }

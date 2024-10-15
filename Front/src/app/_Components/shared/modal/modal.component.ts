@@ -16,12 +16,10 @@ export class ModalComponent {
 
   confirm() {
     this.confirmed.emit();
-    this.isVisible = false; 
   }
 
   cancel() {
     this.canceled.emit();
-    this.isVisible = false; 
   }
   
 }

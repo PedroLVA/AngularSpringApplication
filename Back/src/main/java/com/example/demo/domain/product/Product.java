@@ -24,7 +24,7 @@ public class Product {
 
     private String description;
 
-    private Categories category;
+    private String category;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -37,7 +37,13 @@ public class Product {
         this.price_in_cents = data.price_in_cents();
         this.active = true;
         this.description = data.description();
-        this.category = data.category();
+        this.setCategory(data.category());
+    }
+
+    public void setCategory(String category) {
+        // Validate the category name using the enum
+        Categories.fromCategoryName(category);
+        this.category = category;
     }
 
 
