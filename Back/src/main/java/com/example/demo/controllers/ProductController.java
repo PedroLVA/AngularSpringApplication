@@ -92,7 +92,6 @@ public class ProductController {
             product.setDescription(data.description());
 
             product.setCategory(data.category());
-            System.out.println(data.category());
 
             return ResponseEntity.ok(product);
         } else {
