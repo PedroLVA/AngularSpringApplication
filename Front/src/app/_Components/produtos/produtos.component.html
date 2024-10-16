@@ -82,7 +82,7 @@
         </table>
         <div class="navigation-wrapper w-100">
             <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (nextPage)="nextPage()"
-                (previousPage)="previousPage()" (pageSelected)="onPageSelected($event)">
+                (previousPage)="previousPage(currentFilter)" (pageSelected)="onPageSelected($event, currentFilter)">
             </app-pagination>
         </div>
 

@@ -38,6 +38,7 @@ export class ProdutosComponent implements OnInit {
   currentPage: number = 0;
   totalPages: number = 0;
   pageSize: number = 10;
+  currentFilter: string = "";
 
 
   ngOnInit(): void {
@@ -60,20 +61,19 @@ export class ProdutosComponent implements OnInit {
 
   nextPage(): void {
     if (this.currentPage < this.totalPages - 1) {
-      this.loadProductsPagination(this.currentPage + 1);
+      this.loadProductsPaginationFilter(this.currentPage + 1);
     }
   }
 
-  previousPage(): void {
+  previousPage(filter: string = ''): void {
     if (this.currentPage > 0) {
-      this.loadProductsPagination(this.currentPage - 1);
+      this.loadProductsPaginationFilter(this.currentPage - 1, filter);
     }
   }
 
-  onPageSelected(page: number): void {
-    this.loadProductsPagination(page);
+  onPageSelected(page: number, filter: string = ''): void {
+    this.loadProductsPaginationFilter(page, filter);
   }
-
 
 
   onDelete(id: string) {
@@ -121,14 +121,14 @@ export class ProdutosComponent implements OnInit {
         this.products.set(response.content);
         this.currentPage = response.currentPage;
         this.totalPages = response.totalPages;
-        console.log(response.content)
+       
       },
       error: (err) => console.error('Failed to load products', err)
     });
   }
 
   applyFilter(page: number, filter: string, nome: string): void {
-
+    this.currentFilter = filter;
     this.filtrarPorNome = nome;
     this.loadProductsPaginationFilter(page, filter);
   }

@@ -65,7 +65,7 @@ export class EditarProdutoComponent implements OnInit {
 
           this.form.patchValue({
             name: product.name,
-            price_in_cents: product.priceInCents / 100,
+            priceInCents: product.priceInCents / 100,
             description: product.description,
             category: product.category
           });
@@ -105,7 +105,7 @@ export class EditarProdutoComponent implements OnInit {
   }
 
   get priceIsInvalid() {
-    return this.form.controls['price_in_cents'].touched && this.form.controls['price_in_cents'].dirty && this.form.controls['price_in_cents'].invalid;
+    return this.form.controls['priceInCents'].touched && this.form.controls['priceInCents'].dirty && this.form.controls['priceInCents'].invalid;
   }
 
   get descricaoIsInvalid() {

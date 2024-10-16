@@ -56,7 +56,7 @@ export class AdicionarProdutoComponent implements OnInit {
   }
 
   get priceIsInvalid() {
-    return this.form.controls['price_in_cents'].touched && this.form.controls['price_in_cents'].dirty && this.form.controls['price_in_cents'].invalid;
+    return this.form.controls['priceInCents'].touched && this.form.controls['priceInCents'].dirty && this.form.controls['priceInCents'].invalid;
   }
 
   get descricaoIsInvalid() {

@@ -51,7 +51,7 @@ public class ProductController {
             }
         }
         PageRequest pr = PageRequest.of(page, size, sortOrder);
-        Page<Product> productPage = repositoryPage.findAll(pr);
+        Page<Product> productPage = repositoryPage.findAllByActiveTrue(pr);
         List<Product> listOfProduct = productPage.getContent();
 
 
