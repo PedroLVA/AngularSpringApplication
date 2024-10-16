@@ -16,9 +16,9 @@
 
         <div class="form-floating">
             <input
-                [ngClass]="{'is-invalid': form.controls['price_in_cents'].touched && form.controls['price_in_cents'].invalid && form.controls['price_in_cents'].dirty}"
-                type="price_in_cents" class="form-control" id="floatingPrice" placeholder="Preço"
-                formControlName="price_in_cents">
+                [ngClass]="{'is-invalid': form.controls['priceInCents'].touched && form.controls['priceInCents'].invalid && form.controls['priceInCents'].dirty}"
+                type="priceInCents" class="form-control" id="floatingPrice" placeholder="Preço"
+                formControlName="priceInCents">
             <label for="floatingPrice">Preço</label>
         </div>
         @if(priceIsInvalid){

@@ -20,7 +20,7 @@ public class Product {
 
     private String name;
 
-    private Integer price_in_cents;
+    private Integer priceInCents;
 
     private String description;
 
@@ -34,7 +34,7 @@ public class Product {
 
     public Product(RequestProduct data){
         this.name = data.name();
-        this.price_in_cents = data.price_in_cents();
+        this.priceInCents = data.priceInCents();
         this.active = true;
         this.description = data.description();
         this.setCategory(data.category());

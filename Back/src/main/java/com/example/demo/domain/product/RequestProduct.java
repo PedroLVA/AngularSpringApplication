@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public record RequestProduct(
         String id,
         String name,
-        Integer price_in_cents,
+        Integer priceInCents,
         String description,
         String category,
         LocalDateTime createdAt) {

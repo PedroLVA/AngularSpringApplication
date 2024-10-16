@@ -34,7 +34,7 @@ export class AdicionarProdutoComponent implements OnInit {
   constructor() {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      price_in_cents: new FormControl('', [Validators.required]),
+      priceInCents: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
     })
@@ -71,7 +71,7 @@ export class AdicionarProdutoComponent implements OnInit {
 
     if (this.form.valid) {
       const product: IProductRegister = this.form.value;
-      product.price_in_cents = product.price_in_cents * 100; //tratamento para mandar ao banco como centavos
+      product.priceInCents = product.priceInCents * 100; //tratamento para mandar ao banco como centavos
    
       this.productService.addProduct(product).subscribe({
         next: () => {

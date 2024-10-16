@@ -33,7 +33,7 @@ export class EditarProdutoComponent implements OnInit {
   constructor(){
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      price_in_cents: new FormControl('', [Validators.required]),
+      priceInCents: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
     })
@@ -65,7 +65,7 @@ export class EditarProdutoComponent implements OnInit {
 
           this.form.patchValue({
             name: product.name,
-            price_in_cents: product.price_in_cents / 100,
+            price_in_cents: product.priceInCents / 100,
             description: product.description,
             category: product.category
           });
@@ -83,7 +83,7 @@ export class EditarProdutoComponent implements OnInit {
       const product: IProductEdit = {
         id: this.foundProduct?.id,
         name: this.form.value.name,
-        price_in_cents:  this.form.value.price_in_cents * 100,
+        priceInCents:  this.form.value.priceInCents * 100,
         description: this.form.value.description,
         category: this.form.value.category,
       };

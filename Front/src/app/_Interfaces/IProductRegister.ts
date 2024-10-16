@@ -1,6 +1,6 @@
 export interface IProductRegister {
     name: string;
-    price_in_cents: number;
+    priceInCents: number;
     description: string;
     category: string;
 }

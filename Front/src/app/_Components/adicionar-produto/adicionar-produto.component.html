@@ -15,8 +15,8 @@
 
         <div class="form-floating">
             <input type="number"
-                [ngClass]="{'is-invalid': form.controls['price_in_cents'].touched && form.controls['price_in_cents'].invalid && form.controls['price_in_cents'].dirty}"
-                class="form-control" id="floatingPrice" placeholder="Preço" formControlName="price_in_cents">
+                [ngClass]="{'is-invalid': form.controls['priceInCents'].touched && form.controls['priceInCents'].invalid && form.controls['priceInCents'].dirty}"
+                class="form-control" id="floatingPrice" placeholder="Preço" formControlName="priceInCents">
             <label for="floatingPrice">Preço</label>
             @if(priceIsInvalid){
             <p class="text-danger mb-0">O preço precisa ser preenchido</p>

@@ -37,10 +37,10 @@ public class ProductController {
         if (sort != null) {
             switch (sort) {
                 case "asc":
-                    sortOrder = Sort.by("price_in_cents").ascending(); // Price ascending
+                    sortOrder = Sort.by("priceInCents").ascending(); // Price ascending
                     break;
                 case "desc":
-                    sortOrder = Sort.by("price_in_cents").descending(); // Price descending
+                    sortOrder = Sort.by("priceInCents").descending(); // Price descending
                     break;
                 case "old":
                     sortOrder = Sort.by("createdAt").ascending(); // Oldest first
@@ -67,10 +67,10 @@ public class ProductController {
         if (sort != null) {
             switch (sort) {
                 case "asc":
-                    allProducts.sort(Comparator.comparing(Product::getPrice_in_cents)); // Price ascending
+                    allProducts.sort(Comparator.comparing(Product::getPriceInCents)); // Price ascending
                     break;
                 case "desc":
-                    allProducts.sort(Comparator.comparing(Product::getPrice_in_cents).reversed()); // Price descending
+                    allProducts.sort(Comparator.comparing(Product::getPriceInCents).reversed()); // Price descending
                     break;
                 case "old":
                     allProducts.sort(Comparator.comparing(Product::getCreatedAt)); // Older first
@@ -122,7 +122,7 @@ public class ProductController {
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
             product.setName(data.name());
-            product.setPrice_in_cents(data.price_in_cents());
+            product.setPriceInCents(data.priceInCents());
             product.setDescription(data.description());
 
             product.setCategory(data.category());
