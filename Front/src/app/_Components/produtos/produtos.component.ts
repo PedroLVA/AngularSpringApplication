@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SpinnerComponent } from "../shared/spinner/spinner.component";
 import { AuthService } from '../../_Services/auth.service';
 import { IUserDetails } from '../../_Interfaces/IUserDetails';
-import { CurrencyPipe, DatePipe, registerLocaleData } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe, NgFor, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { Router, RouterLink } from '@angular/router';
 import { ModalComponent } from "../shared/modal/modal.component";
@@ -17,13 +17,13 @@ registerLocaleData(localePt, 'pt-BR');
 @Component({
   selector: 'app-produtos',
   standalone: true,
-  imports: [SpinnerComponent, CurrencyPipe, RouterLink, ModalComponent, DatePipe, PaginationComponent],
+  imports: [SpinnerComponent, CurrencyPipe, RouterLink, ModalComponent, DatePipe, PaginationComponent, CommonModule, NgFor],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   templateUrl: './produtos.component.html',
   styleUrl: './produtos.component.scss'
 })
 export class ProdutosComponent implements OnInit {
-  
+
   products = signal<IProduct[] | undefined>(undefined);
   loading = signal<boolean>(false);
   router = inject(Router);
@@ -35,22 +35,48 @@ export class ProdutosComponent implements OnInit {
   productIdToDelete: string | null = null;
   productNameToDelete: string | null = null;
   filtrarPorNome: string = "Filtrar por...";
+  currentPage: number = 0;
+  totalPages: number = 0;
+  pageSize: number = 6;
 
 
   ngOnInit(): void {
-    this.productService.getProductsPagination(0, 11).subscribe({
-      next: (response: IPagination ) => {
+    this.loadProductsPagination(this.currentPage)
+
+  }
+
+  loadProductsPagination(page: number): void {
+    this.productService.getProductsPagination(page, this.pageSize).subscribe({
+      next: (response: IPagination) => {
         this.products.set(response.content);
-        
+        this.currentPage = response.currentPage;
+        this.totalPages = response.totalPages;
       },
       error: (err) => console.error('Failed to load products', err)
     });
+  }
 
+  //pagination
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.loadProductsPagination(this.currentPage + 1);
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 0) {
+      this.loadProductsPagination(this.currentPage - 1);
+    }
+  }
+
+  onPageSelected(page: number): void {
+    this.loadProductsPagination(page);
   }
 
 
 
-  onDelete(id: string){
+  onDelete(id: string) {
     this.isModalVisible.set(false);
     this.productService.deleteProduct(id).subscribe({
       next: () => {
@@ -66,18 +92,18 @@ export class ProdutosComponent implements OnInit {
   }
 
   openModal(productId: string, productName: string) {
-    console.log('Opening modal for:', productId, productName);  
-    this.productIdToDelete = productId; 
+    console.log('Opening modal for:', productId, productName);
+    this.productIdToDelete = productId;
     this.productNameToDelete = productName;
-    this.isModalVisible.set(true); 
+    this.isModalVisible.set(true);
   }
 
   closeModal() {
-    this.isModalVisible.set(false); 
+    this.isModalVisible.set(false);
     this.productIdToDelete = null;
   }
-  
-  onEditClick(id: string){
+
+  onEditClick(id: string) {
     this.router.navigate(['/editar/produto/', id], {
       replaceUrl: true
     })
@@ -101,13 +127,17 @@ export class ProdutosComponent implements OnInit {
   }
 
   applyFilter(filter: string, nome: string): void {
-    
+
     this.filtrarPorNome = nome;
     this.loadProducts(filter);
   }
 
-  getCategoryName(productCategory: string){
-    
+  getCategoryName(productCategory: string) {
+
   }
+
+
+
+
 
 }
