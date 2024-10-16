@@ -7,7 +7,8 @@ public enum Categories {
     FURNITURE("Móveis"),
     CLOTHING("Roupas"),
     GROCERY("Alimentos"),
-    TOYS("Brinquedos");
+    TOYS("Brinquedos"),
+    HEALTH("Saúde");
 
     private final String category;
 

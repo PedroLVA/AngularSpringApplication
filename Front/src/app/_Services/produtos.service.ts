@@ -25,12 +25,17 @@ export class ProdutosService {
 
   //pages
 
-  getProductsPagination(page: number, size: number): Observable<IPagination> {
-    const params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString());
+  getProductsPagination(page: number, size: number, sort: string = ''): Observable<IPagination> {
+    let params = new HttpParams()
+    .set('page', page.toString())
+    .set('size', size.toString());
 
-    return this.http.get<IPagination>(this.apiURL + '/pages', { params });
+  if (sort) {
+    params = params.set('sort', sort);
+  
+  }
+
+  return this.http.get<IPagination>(`${this.apiURL}/pages`, { params });
   }
 
   getProductById(id: string): Observable<IProduct>{

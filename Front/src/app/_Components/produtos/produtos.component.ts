@@ -37,7 +37,7 @@ export class ProdutosComponent implements OnInit {
   filtrarPorNome: string = "Filtrar por...";
   currentPage: number = 0;
   totalPages: number = 0;
-  pageSize: number = 6;
+  pageSize: number = 10;
 
 
   ngOnInit(): void {
@@ -115,26 +115,25 @@ export class ProdutosComponent implements OnInit {
 
   //Filter do produto
 
-  loadProducts(filter: string = ''): void {
-    this.productService.getAllProducts(filter).subscribe({
-      next: (response) => {
-        this.products.set(response);
+  loadProductsPaginationFilter(page: number, filter: string = ''): void {
+    this.productService.getProductsPagination(page, this.pageSize, filter).subscribe({
+      next: (response: IPagination) => {
+        this.products.set(response.content);
+        this.currentPage = response.currentPage;
+        this.totalPages = response.totalPages;
+        console.log(response.content)
       },
-      error: (err) => {
-        this.toastrService.error("Houve um erro ao recuperar os produtos:\n" + err.error);
-      }
+      error: (err) => console.error('Failed to load products', err)
     });
   }
 
-  applyFilter(filter: string, nome: string): void {
+  applyFilter(page: number, filter: string, nome: string): void {
 
     this.filtrarPorNome = nome;
-    this.loadProducts(filter);
+    this.loadProductsPaginationFilter(page, filter);
   }
 
-  getCategoryName(productCategory: string) {
-
-  }
+  
 
 
 

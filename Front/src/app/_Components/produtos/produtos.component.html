@@ -9,10 +9,10 @@
             </svg> {{filtrarPorNome}}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li (click)="applyFilter('asc', 'Preço crescente')"><a class="dropdown-item">Preço crescente</a></li>
-            <li (click)="applyFilter('desc', 'Preço decrescente')"><a class="dropdown-item">Preço decrescente</a></li>
-            <li (click)="applyFilter('old', 'Antigo')"><a class="dropdown-item">Antigo</a></li>
-            <li (click)="applyFilter('new', 'Novo')"><a class="dropdown-item">Novo</a></li>
+            <li (click)="applyFilter(currentPage, 'asc', 'Preço crescente')"><a class="dropdown-item">Preço crescente</a></li>
+            <li (click)="applyFilter(currentPage,'desc', 'Preço decrescente')"><a class="dropdown-item">Preço decrescente</a></li>
+            <li (click)="applyFilter(currentPage,'old', 'Antigo')"><a class="dropdown-item">Antigo</a></li>
+            <li (click)="applyFilter(currentPage,'new', 'Novo')"><a class="dropdown-item">Novo</a></li>
         </ul>
     </div>
 

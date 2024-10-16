@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,29 @@ public class ProductController {
 
     //Get pages
     @GetMapping("/pages")
-    public ResponseEntity<PaginationResponseDTO> getAllProductsPage(@RequestParam int page, @RequestParam int size){
-        PageRequest pr = PageRequest.of(page, size);
+    public ResponseEntity<PaginationResponseDTO> getAllProductsPage(@RequestParam int page, @RequestParam int size, @RequestParam(value = "sort", required = false) String sort){
+
+
+
+        Sort sortOrder = Sort.unsorted(); // Default: No sorting
+
+        if (sort != null) {
+            switch (sort) {
+                case "asc":
+                    sortOrder = Sort.by("price_in_cents").ascending(); // Price ascending
+                    break;
+                case "desc":
+                    sortOrder = Sort.by("price_in_cents").descending(); // Price descending
+                    break;
+                case "old":
+                    sortOrder = Sort.by("createdAt").ascending(); // Oldest first
+                    break;
+                case "new":
+                    sortOrder = Sort.by("createdAt").descending(); // Newest first
+                    break;
+            }
+        }
+        PageRequest pr = PageRequest.of(page, size, sortOrder);
         Page<Product> productPage = repositoryPage.findAll(pr);
         List<Product> listOfProduct = productPage.getContent();
 
