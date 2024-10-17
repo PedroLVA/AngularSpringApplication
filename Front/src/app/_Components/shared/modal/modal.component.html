@@ -2,18 +2,20 @@
  @if (isVisible) {
 
 <div class="modal custom-modal-animation" id="customModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog p-0">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalLabel">{{ title }}</h5>
+          <h4 class="modal-title" id="modalLabel">{{ title }}</h4>
+          
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()"></button>
         </div>
         <div class="modal-body">
-          <p>{{ message }}</p>
+          <h5>{{ message }}</h5>
+          
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="cancel()">No</button>
-          <button type="button" class="btn btn-danger" (click)="confirm()">Yes</button>
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" (click)="cancel()">NO, CANCEL</button>
+          <button type="button" class="btn btn-danger" (click)="confirm()">YES, DELETE</button>
         </div>
       </div>
     </div>

@@ -21,28 +21,29 @@ export class ProdutosService {
   getAllProducts(sort: string = ''): Observable<IProduct[]> {
     const queryParam = sort ? `?sort=${sort}` : '';
     return this.http.get<IProduct[]>(`${this.apiURL}${queryParam}`);
+
   }
 
   //pages
 
   getProductsPagination(page: number, size: number, sort: string = ''): Observable<IPagination> {
     let params = new HttpParams()
-    .set('page', page.toString())
-    .set('size', size.toString());
+      .set('page', page.toString())
+      .set('size', size.toString());
 
-  if (sort) {
-    params = params.set('sort', sort);
-  
+    if (sort) {
+      params = params.set('sort', sort);
+
+    }
+
+    return this.http.get<IPagination>(`${this.apiURL}/pages`, { params });
   }
 
-  return this.http.get<IPagination>(`${this.apiURL}/pages`, { params });
-  }
-
-  getProductById(id: string): Observable<IProduct>{
+  getProductById(id: string): Observable<IProduct> {
     return this.http.get<IProduct>(`${this.apiURL}/${id}`)
   }
 
-  getProductsCategories(): Observable<ICategory[]>{
+  getProductsCategories(): Observable<ICategory[]> {
     return this.http.get<ICategory[]>(`${this.apiURL}/categories`)
   }
 
@@ -50,12 +51,12 @@ export class ProdutosService {
     return this.http.post<any>(this.apiURL, product);
   }
 
-  editProduct(product: IProductEdit): Observable<IProductEdit>{
+  editProduct(product: IProductEdit): Observable<IProductEdit> {
     return this.http.put<any>(this.apiURL, product);
   }
 
-  deleteProduct(id: string){
+  deleteProduct(id: string) {
     return this.http.delete<any>(`${this.apiURL}/${id}`);
   }
-  
+
 }

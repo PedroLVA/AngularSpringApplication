@@ -9,12 +9,15 @@
     justify-content: center;
     align-items: center;
   }
-  
+  .modal-dialog{
+    border-radius: 20px;
+  }
   .modal-content {
     background-color: white;
-    padding: 20px;
+    padding: 1em;
     border-radius: 4px;
     text-align: center;
+    border-radius: 20px;
   }
   
   button {
