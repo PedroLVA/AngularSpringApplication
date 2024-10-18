@@ -25,14 +25,11 @@
 
         <br>
         <div class="form-floating">
-            <select [ngClass]="{'is-invalid': form.controls['category'].touched && form.controls['category'].invalid && form.controls['category'].dirty}" class="form-control"
-                id="floatingCategory" formControlName="category">
+            <select
+                [ngClass]="{'is-invalid': form.controls['category'].touched && form.controls['category'].invalid && form.controls['category'].dirty}"
+                class="form-control" id="floatingCategory" formControlName="category">
                 <option value="" disabled selected>Selecione uma categoria</option>
-                
-               
                 <option *ngFor="let category of categories()" [value]="category.category">{{category.category}}</option>
-               
-                <!-- <option *ngFor="let category of categories()" [value]="category.name">{{ category.category }}</option> -->
             </select>
             <label for="floatingCategory">Categoria</label>
         </div>
@@ -47,9 +44,9 @@
             @if(descricaoIsInvalid){
             <p class="text-danger mb-0">É preciso preencher a descrição!</p>
             }
-        </div> 
-        
-        
+        </div>
+
+
 
 
         <br>

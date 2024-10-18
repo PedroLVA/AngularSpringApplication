@@ -24,7 +24,7 @@
     margin: 0 10px;
   }
 
-  /* Modal Fade-in and Scale Animation */
+
 @keyframes modalFadeIn {
     0% {
       opacity: 0;
@@ -36,7 +36,7 @@
     }
   }
   
-  /* Modal Fade-out and Scale Animation */
+ 
   @keyframes modalFadeOut {
     0% {
       opacity: 1;
@@ -48,7 +48,7 @@
     }
   }
   
-  /* Apply animation to modal */
+ 
   .custom-modal-animation .modal-dialog {
     animation: modalFadeIn 0.4s ease-out forwards;
   }

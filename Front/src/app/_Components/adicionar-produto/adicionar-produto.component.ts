@@ -3,12 +3,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../_Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { IProduct } from '../../_Interfaces/IProduct';
 import { ProdutosService } from '../../_Services/produtos.service';
 import { IProductRegister } from '../../_Interfaces/IProductRegister';
-import { switchMap } from 'rxjs';
 import { ModalComponent } from "../shared/modal/modal.component";
 import { ICategory } from '../../_Interfaces/ICategory';
 

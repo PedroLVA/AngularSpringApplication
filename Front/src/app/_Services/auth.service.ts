@@ -65,10 +65,10 @@ export class AuthService {
 
   private getTokenExpirationTime(token: string): number {
     const decodedToken: any = jwtDecode(token);
-    return decodedToken.exp * 1000;  
+    return decodedToken.exp * 1000;
   }
 
-  startTokenMonitoring(interval: number = 60000) {  
+  startTokenMonitoring(interval: number = 60000) {
     setInterval(() => {
       const token = this.getToken();
       if (token) {
@@ -77,9 +77,9 @@ export class AuthService {
 
         if (expirationTime <= currentTime) {
           this.logout();
-          window.location.href = '/login'; 
+          window.location.href = '/login';
         }
       }
-    }, interval);  
+    }, interval);
   }
 }

@@ -9,7 +9,7 @@ import { Component, Input, output } from '@angular/core';
   styleUrl: './pagination.component.scss'
 })
 export class PaginationComponent {
-  @Input() currentPage: number = 0; // Current page number
+  @Input() currentPage: number = 0; 
   @Input() totalPages: number = 0;
   nextPage = output();
   previousPage = output()

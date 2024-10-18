@@ -27,20 +27,19 @@
 
         <br>
         <div class="form-floating">
-            <select [ngClass]="{'is-invalid': form.controls['category'].touched && form.controls['category'].invalid && form.controls['category'].dirty}" class="form-control"
-                id="floatingCategory" formControlName="category">
+            <select
+                [ngClass]="{'is-invalid': form.controls['category'].touched && form.controls['category'].invalid && form.controls['category'].dirty}"
+                class="form-control" id="floatingCategory" formControlName="category">
                 <option value="" disabled selected>Selecione uma categoria</option>
-                
-               
                 <option *ngFor="let category of categories()" [value]="category.category">{{category.category}}</option>
-               
-                <!-- <option *ngFor="let category of categories()" [value]="category.name">{{ category.category }}</option> -->
             </select>
             <label for="floatingCategory">Categoria</label>
         </div>
         <br>
         <div class="form-floating">
-            <textarea [ngClass]="{'is-invalid': form.controls['description'].touched && form.controls['description'].invalid && form.controls['description'].dirty}" class="form-control" placeholder="Descrição" id="floatingTextarea" formControlName="description"
+            <textarea
+                [ngClass]="{'is-invalid': form.controls['description'].touched && form.controls['description'].invalid && form.controls['description'].dirty}"
+                class="form-control" placeholder="Descrição" id="floatingTextarea" formControlName="description"
                 style="height: 150px;"></textarea>
             <label for="floatingTextarea">Descrição</label>
         </div>

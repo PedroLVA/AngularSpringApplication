@@ -4,7 +4,6 @@ import { AuthService } from '../../_Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProdutosService } from '../../_Services/produtos.service';
-import { IProductRegister } from '../../_Interfaces/IProductRegister';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { switchMap } from 'rxjs';
 import { IProduct } from '../../_Interfaces/IProduct';
