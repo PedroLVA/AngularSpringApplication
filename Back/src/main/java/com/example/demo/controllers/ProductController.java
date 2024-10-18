@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.domain.product.*;
 import com.example.demo.repositories.ProductRepository;
 import com.example.demo.repositories.ProductRepositoryPage;
+import com.example.demo.services.ProductService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,27 +27,14 @@ public class ProductController {
     @Autowired
     private ProductRepositoryPage repositoryPage;
 
+    @Autowired
+    private ProductService productService;
+
     //Get pages
     @GetMapping()
     public ResponseEntity<PaginationResponseDTO> getAllProductsPage(@RequestParam int page, @RequestParam int size, @RequestParam(value = "sort", required = false) String sort){
-
-        Sort sortOrder = Sort.unsorted(); // Default: No sorting
-
-        if (sort != null) {
-            // Newest first
-            sortOrder = switch (sort) {
-                case "asc" -> Sort.by("priceInCents").ascending(); // Price ascending
-                case "desc" -> Sort.by("priceInCents").descending(); // Price descending
-                case "old" -> Sort.by("createdAt").ascending(); // Oldest first
-                case "new" -> Sort.by("createdAt").descending();
-                default -> sortOrder;
-            };
-        }
-        PageRequest pr = PageRequest.of(page, size, sortOrder);
-        Page<Product> productPage = repositoryPage.findAllByActiveTrue(pr);
-        List<Product> listOfProduct = productPage.getContent();
-
-       return ResponseEntity.ok(new PaginationResponseDTO(productPage.getNumber(), productPage.getTotalPages(), productPage.getTotalElements(), listOfProduct, productPage.isLast()));
+        PaginationResponseDTO response = productService.getProducts(page, size, sort);
+       return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
