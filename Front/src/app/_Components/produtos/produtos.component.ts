@@ -135,8 +135,8 @@ export class ProdutosComponent implements OnInit {
 
 
   onApplyNumberPages(pageSize: number){
-    if(pageSize < 0 || pageSize == null){
-      this.toastrService.error("O número de itens deve ser positivo!")
+    if(pageSize < 1 || pageSize == null){
+      this.toastrService.error("O número de items por página deve no mínimo 1!")
       return;
     }
     this.pageSize = pageSize;

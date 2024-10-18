@@ -20,9 +20,11 @@
 
     <p class="mb-0 ms-1">Total de produtos: {{totalNumberOfProducts}}</p>
 
+ 
+        <input name="numberOfPages" type="number" class="form-control ms-auto"
+        placeholder="Qtd páginas" [(ngModel)]="pageSize" min="1">
 
-    <input name="numberOfPages" type="number" class="form-control ms-auto" id="floatingPrice"
-        placeholder="Número de itens por página" [(ngModel)]="pageSize" min="0" required="">
+  
     <button (click)="onApplyNumberPages(pageSize)" class="btn btn-primary ms-2">Apply</button>
 
 
