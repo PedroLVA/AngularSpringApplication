@@ -59,9 +59,9 @@ export class ProdutosComponent implements OnInit {
 
   //pagination
 
-  nextPage(): void {
+  nextPage(filter: string = ''): void {
     if (this.currentPage < this.totalPages - 1) {
-      this.loadProductsPaginationFilter(this.currentPage + 1);
+      this.loadProductsPaginationFilter(this.currentPage + 1, filter);
     }
   }
 
@@ -123,7 +123,7 @@ export class ProdutosComponent implements OnInit {
         this.totalPages = response.totalPages;
        
       },
-      error: (err) => console.error('Failed to load products', err)
+      error: (err) => console.error('Failed to load products', err.error)
     });
   }
 
