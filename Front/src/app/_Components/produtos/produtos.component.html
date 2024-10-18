@@ -9,14 +9,19 @@
             </svg> {{filtrarPorNome}}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li (click)="applyFilter(currentPage, 'asc', 'Preço crescente')"><a class="dropdown-item">Preço crescente</a></li>
-            <li (click)="applyFilter(currentPage,'desc', 'Preço decrescente')"><a class="dropdown-item">Preço decrescente</a></li>
+            <li (click)="applyFilter(currentPage, 'asc', 'Preço crescente')"><a class="dropdown-item">Preço
+                    crescente</a></li>
+            <li (click)="applyFilter(currentPage,'desc', 'Preço decrescente')"><a class="dropdown-item">Preço
+                    decrescente</a></li>
             <li (click)="applyFilter(currentPage,'old', 'Antigo')"><a class="dropdown-item">Antigo</a></li>
             <li (click)="applyFilter(currentPage,'new', 'Novo')"><a class="dropdown-item">Novo</a></li>
         </ul>
     </div>
 
-    <p class="mb-0 ms-1">Total de produtos: {{ productCount }}</p>
+    <p class="mb-0 ms-1">Total de produtos: {{totalNumberOfProducts}}</p>
+    
+    <input type="number" class="form-control" id="floatingPrice" placeholder="Número de itens por página">
+    
 </div>
 
 

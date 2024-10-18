@@ -27,61 +27,26 @@ public class ProductController {
     private ProductRepositoryPage repositoryPage;
 
     //Get pages
-    @GetMapping("/pages")
+    @GetMapping()
     public ResponseEntity<PaginationResponseDTO> getAllProductsPage(@RequestParam int page, @RequestParam int size, @RequestParam(value = "sort", required = false) String sort){
-
-
 
         Sort sortOrder = Sort.unsorted(); // Default: No sorting
 
         if (sort != null) {
-            switch (sort) {
-                case "asc":
-                    sortOrder = Sort.by("priceInCents").ascending(); // Price ascending
-                    break;
-                case "desc":
-                    sortOrder = Sort.by("priceInCents").descending(); // Price descending
-                    break;
-                case "old":
-                    sortOrder = Sort.by("createdAt").ascending(); // Oldest first
-                    break;
-                case "new":
-                    sortOrder = Sort.by("createdAt").descending(); // Newest first
-                    break;
-            }
+            // Newest first
+            sortOrder = switch (sort) {
+                case "asc" -> Sort.by("priceInCents").ascending(); // Price ascending
+                case "desc" -> Sort.by("priceInCents").descending(); // Price descending
+                case "old" -> Sort.by("createdAt").ascending(); // Oldest first
+                case "new" -> Sort.by("createdAt").descending();
+                default -> sortOrder;
+            };
         }
         PageRequest pr = PageRequest.of(page, size, sortOrder);
         Page<Product> productPage = repositoryPage.findAllByActiveTrue(pr);
         List<Product> listOfProduct = productPage.getContent();
 
-
        return ResponseEntity.ok(new PaginationResponseDTO(productPage.getNumber(), productPage.getTotalPages(), productPage.getTotalElements(), listOfProduct, productPage.isLast()));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts(
-            @RequestParam(value = "sort", required = false) String sort) {
-
-        var allProducts = repository.findAllByActiveTrue();
-
-        if (sort != null) {
-            switch (sort) {
-                case "asc":
-                    allProducts.sort(Comparator.comparing(Product::getPriceInCents)); // Price ascending
-                    break;
-                case "desc":
-                    allProducts.sort(Comparator.comparing(Product::getPriceInCents).reversed()); // Price descending
-                    break;
-                case "old":
-                    allProducts.sort(Comparator.comparing(Product::getCreatedAt)); // Older first
-                    break;
-                case "new":
-                    allProducts.sort(Comparator.comparing(Product::getCreatedAt).reversed()); // Newer first
-                    break;
-            }
-        }
-
-        return ResponseEntity.ok(allProducts);
     }
 
     @GetMapping("/{id}")

@@ -18,15 +18,9 @@ export class ProdutosService {
 
   constructor() { }
 
-  getAllProducts(sort: string = ''): Observable<IProduct[]> {
-    const queryParam = sort ? `?sort=${sort}` : '';
-    return this.http.get<IProduct[]>(`${this.apiURL}${queryParam}`);
-
-  }
-
   //pages
 
-  getProductsPagination(page: number, size: number, sort: string = ''): Observable<IPagination> {
+  getProducts(page: number, size: number, sort: string = ''): Observable<IPagination> {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
@@ -36,7 +30,7 @@ export class ProdutosService {
 
     }
 
-    return this.http.get<IPagination>(`${this.apiURL}/pages`, { params });
+    return this.http.get<IPagination>(this.apiURL, { params });
   }
 
   getProductById(id: string): Observable<IProduct> {

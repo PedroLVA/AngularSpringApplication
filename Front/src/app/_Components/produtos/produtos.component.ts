@@ -39,16 +39,17 @@ export class ProdutosComponent implements OnInit {
   totalPages: number = 0;
   pageSize: number = 10;
   currentFilter: string = "";
-
+  totalNumberOfProducts!: number;
 
   ngOnInit(): void {
-    this.loadProductsPagination(this.currentPage)
+    this.loadProducts(this.currentPage)
 
   }
 
-  loadProductsPagination(page: number): void {
-    this.productService.getProductsPagination(page, this.pageSize).subscribe({
+  loadProducts(page: number): void {
+    this.productService.getProducts(page, this.pageSize).subscribe({
       next: (response: IPagination) => {
+        this.totalNumberOfProducts =response.totalElements;
         this.products.set(response.content);
         this.currentPage = response.currentPage;
         this.totalPages = response.totalPages;
@@ -109,14 +110,12 @@ export class ProdutosComponent implements OnInit {
     })
   }
 
-  get productCount(): number {
-    return this.products()?.length || 0;
-  }
+ 
 
   //Filter do produto
 
   loadProductsPaginationFilter(page: number, filter: string = ''): void {
-    this.productService.getProductsPagination(page, this.pageSize, filter).subscribe({
+    this.productService.getProducts(page, this.pageSize, filter).subscribe({
       next: (response: IPagination) => {
         this.products.set(response.content);
         this.currentPage = response.currentPage;

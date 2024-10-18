@@ -8,7 +8,22 @@ public enum Categories {
     CLOTHING("Roupas"),
     GROCERY("Alimentos"),
     TOYS("Brinquedos"),
-    HEALTH("Saúde");
+    HEALTH("Saúde"),
+    SPORTS("Esportes"),
+    BEAUTY("Beleza"),
+    BOOKS("Livros"),
+    STATIONERY("Papelaria"),
+    AUTOMOTIVE("Automotivo"),
+    PET_SUPPLIES("Pet Shop"),
+    HOME_APPLIANCES("Eletrodomésticos"),
+    GARDENING("Jardinagem"),
+    MUSIC("Música"),
+    OFFICE_SUPPLIES("Escritório"),
+    JEWELRY("Joias"),
+    FOOTWEAR("Calçados"),
+    BABY_PRODUCTS("Bebês"),
+    SOFTWARE("Software"),
+    VIDEO_GAMES("Videogames");
 
     private final String category;
 
