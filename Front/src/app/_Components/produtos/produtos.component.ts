@@ -1,4 +1,4 @@
-import { Component, inject, LOCALE_ID, OnInit, signal } from '@angular/core';
+import { Component, inject, LOCALE_ID, NgModule, OnInit, signal } from '@angular/core';
 import { ProdutosService } from '../../_Services/produtos.service';
 import { IProduct } from '../../_Interfaces/IProduct';
 import { ToastrService } from 'ngx-toastr';
@@ -11,13 +11,14 @@ import { Router, RouterLink } from '@angular/router';
 import { ModalComponent } from "../shared/modal/modal.component";
 import { PaginationComponent } from "../pagination/pagination.component";
 import { IPagination } from '../../_Interfaces/IPagination';
+import { FormsModule, NgModel } from '@angular/forms';
 
 registerLocaleData(localePt, 'pt-BR');
 
 @Component({
   selector: 'app-produtos',
   standalone: true,
-  imports: [SpinnerComponent, CurrencyPipe, RouterLink, ModalComponent, DatePipe, PaginationComponent, CommonModule, NgFor],
+  imports: [SpinnerComponent, CurrencyPipe, RouterLink, ModalComponent, DatePipe, PaginationComponent, CommonModule, NgFor, FormsModule],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   templateUrl: './produtos.component.html',
   styleUrl: './produtos.component.scss'
@@ -132,6 +133,15 @@ export class ProdutosComponent implements OnInit {
     this.loadProductsPaginationFilter(page, filter);
   }
 
+
+  onApplyNumberPages(pageSize: number){
+    if(pageSize < 0 || pageSize == null){
+      this.toastrService.error("O número de itens deve ser positivo!")
+      return;
+    }
+    this.pageSize = pageSize;
+    this.loadProducts(this.currentPage)
+  }
   
 
 

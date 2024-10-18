@@ -19,9 +19,13 @@
     </div>
 
     <p class="mb-0 ms-1">Total de produtos: {{totalNumberOfProducts}}</p>
-    
-    <input type="number" class="form-control" id="floatingPrice" placeholder="Número de itens por página">
-    
+
+
+    <input name="numberOfPages" type="number" class="form-control w-25 ms-auto" id="floatingPrice"
+        placeholder="Número de itens por página" [(ngModel)]="pageSize" min="0" required="">
+    <button (click)="onApplyNumberPages(pageSize)" class="btn btn-primary ms-2">Apply</button>
+
+
 </div>
 
 
