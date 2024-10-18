@@ -57,46 +57,29 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity registerProduct(@RequestBody @Validated RequestProduct data){
-
-        Product newProduct = new Product(data);
-
-        repository.save(newProduct);
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Produto cadastrado com sucesso!");
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(productService.registerProduct(data));
 
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity updateProduct(@RequestBody @Validated RequestProduct data){
-        Optional<Product> optionalProduct = repository.findById(data.id());
-        if (optionalProduct.isPresent()) {
-            Product product = optionalProduct.get();
-            product.setName(data.name());
-            product.setPriceInCents(data.priceInCents());
-            product.setDescription(data.description());
-
-            product.setCategory(data.category());
-
-            return ResponseEntity.ok(product);
-        } else {
-            throw new EntityNotFoundException();
-        }
+        Map<String, String> response = new HashMap<>();
+        productService.updateProduct(data);
+        response.put("message", "Produto cadastrado com sucesso!");
+        return ResponseEntity.ok(response);
 
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deleteProduct(@PathVariable String id){
-        Optional<Product> optionalProduct = repository.findById(id);
-        if (optionalProduct.isPresent()) {
-            Product product = optionalProduct.get();
-            product.setActive(false);
-            return ResponseEntity.noContent().build();
-        } else {
-            throw new EntityNotFoundException();
+        try {
+            productService.deleteProduct(id);
+            return ResponseEntity.noContent().build(); // No content, success
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build(); // 404 Not Found
         }
     }
 

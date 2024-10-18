@@ -2,15 +2,21 @@ package com.example.demo.services;
 
 import com.example.demo.domain.product.PaginationResponseDTO;
 import com.example.demo.domain.product.Product;
+import com.example.demo.domain.product.RequestProduct;
 import com.example.demo.repositories.ProductRepository;
 import com.example.demo.repositories.ProductRepositoryPage;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -44,4 +50,41 @@ public class ProductService {
                 products,
                 productPage.isLast());
     }
+
+    public Product updateProduct(RequestProduct data){
+        Optional<Product> optionalProduct = repository.findById(data.id());
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            product.setName(data.name());
+            product.setPriceInCents(data.priceInCents());
+            product.setDescription(data.description());
+            product.setCategory(data.category());
+
+            return product;
+        }
+        else{
+            throw new EntityNotFoundException();
+        }
+    }
+
+    public Map<String, String> registerProduct(RequestProduct data){
+        Map<String, String> response = new HashMap<>();
+        Product newProduct = new Product(data);
+
+        repository.save(newProduct);
+        response.put("message", "Produto cadastrado com sucesso!");
+
+        return response;
+    }
+
+    public void deleteProduct(String id){
+        Optional<Product> optionalProduct = repository.findById(id);
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            product.setActive(false);
+        } else {
+            throw new EntityNotFoundException();
+        }
+    }
+
 }

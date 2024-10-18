@@ -76,7 +76,9 @@ export class AdicionarProdutoComponent implements OnInit {
           this.form.reset();
         },
         error: (erro) => {
-          this.toastService.error('Erro ao adicionar produto!' + erro.error);
+          console.log("Erro aqui: " + erro.error);
+          
+          this.toastService.error('Erro ao adicionar produto!: ' + erro.error);
         }
       });
       return;
