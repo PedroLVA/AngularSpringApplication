@@ -51,7 +51,7 @@ export class EditarProdutoComponent implements OnInit {
         switchMap((params) => {
           const id = params.get('id');
           if (id) {
-            return this.productService.getProductById(id); // Fetch product by ID
+            return this.productService.getProductById(id);
         
           }
           return [];
