@@ -7,11 +7,13 @@ import { ilogin } from '../../_Interfaces/ilogin';
 import { IUserToken } from '../../_Interfaces/IUserToken';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../../_Interceptor/auth.interceptor';
+import { SpinnerComponent } from "../shared/spinner/spinner.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, RouterOutlet, RouterLinkActive, ReactiveFormsModule],
+  imports: [RouterModule, RouterOutlet, RouterLinkActive, ReactiveFormsModule, SpinnerComponent, CommonModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -24,7 +26,7 @@ import { AuthInterceptor } from '../../_Interceptor/auth.interceptor';
 })
 export class LoginComponent {
   form: FormGroup;
-
+  isSpinnerVisible: boolean = false;
   authService = inject(AuthService)
   toastService = inject(ToastrService);
   router = inject(Router)
@@ -39,21 +41,33 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    
     const loginBody: ilogin = this.form.value;
     if (this.form.valid) {
+      this.isSpinnerVisible = true;
       this.authService.login(loginBody).subscribe({
         next: (response: IUserToken) => {
           this.toastService.success("Login realizado com sucesso!")
           this.router.navigate(['/home']);
+          this.isSpinnerVisible = false;
         }
          ,
         error: (err) => {
           this.toastService.error("Erro ao fazer login: " + err.error);
+          this.isSpinnerVisible = false;
         }
       });
     } else {
       console.log("Erro");
     }
+  }
+
+  get loginIsInvalid() {
+    return this.form.controls['login'].touched && this.form.controls['login'].dirty && this.form.controls['login'].invalid;
+  }
+
+  get passwordIsInvalid() {
+    return this.form.controls['password'].touched && this.form.controls['password'].dirty && this.form.controls['password'].invalid;
   }
   
 }
