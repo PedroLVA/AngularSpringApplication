@@ -48,12 +48,15 @@ export class ProdutosComponent implements OnInit {
   }
 
   loadProducts(page: number): void {
+    this.loading.set(true);
     this.productService.getProducts(page, this.pageSize).subscribe({
       next: (response: IPagination) => {
         this.totalNumberOfProducts =response.totalElements;
+        this.loading.set(false);
         this.products.set(response.content);
         this.currentPage = response.currentPage;
         this.totalPages = response.totalPages;
+        
       },
       error: (err) => console.error('Failed to load products', err)
     });

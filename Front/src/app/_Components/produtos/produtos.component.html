@@ -101,7 +101,9 @@
         <div class="container d-flex justify-content-center vw-80 position-absolute">
             <app-spinner></app-spinner>
         </div>
-        }@else if(!products()) {
+        }
+
+        @if(!products() && !loading()) {
         <div class="container d-flex justify-content-center vw-80 position-absolute">
             <h1 class="text-muted">Nenhum produto encontrado.</h1>
         </div>

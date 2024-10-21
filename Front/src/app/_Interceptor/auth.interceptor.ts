@@ -19,7 +19,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(authReq).pipe(
       catchError((error) => {
-       
+        this.authService.logout();
+        console.log("This is the error", error);
         return throwError( () => error);
       })
     );
