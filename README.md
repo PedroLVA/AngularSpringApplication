@@ -1,29 +1,93 @@
-﻿# AngularSpringCrud
-Application I'm using to train the concepts learned of Angular and Spring Boot
+# Aplicação CRUD Bootstrap/Angular
 
-Para utlizar o banco de dados com docker, colocar as seguintes informações:
+ Este projeto é uma aplicação simples de CRUD de produtos.
 
-# Aviso importante
+## Tecnologias Utilizadas
 
-Caso haja alteração em alguma entidade, é necessário criar a migration e deletar os containers e imagens, e rodar o docker compose novamente.
+- **Frontend:** Angular
+- **Backend:** Spring Boot
+- **Banco de Dados:** PostgreSQL
+- **Contêinerização:** Docker
+- **Autenticação:** JWT
 
-## Para se conectar no banco de dados via docker pelo terminal:
+## Pré-requisitos
 
-* Rode o comando:
-     ```sh
-  docker compose up -d
+Antes de iniciar, verifique se você possui as seguintes ferramentas instaladas:
+
+- **Node.js** e **npm**: [Instalar Node.js](https://nodejs.org/)
+- **Docker** e **Docker Compose**: [Instalar Docker](https://docs.docker.com/get-docker/)
+- **Angular CLI** (globalmente):  
+  ```bash
+  npm install -g @angular/cli
   ```
-* Rode o comando:
-   ```sh
-  docker exec -it back-db-1 bash
-  ```
-* Em seguida, o comando:
-    
-   ```sh
-   psql -U postgres -d product
-    ```
-* Para listar todas as tabelas:
-    
-   ```sh
-   \dt
-    ```
+
+## Configurando Frontend
+
+### 1. Clonar o Repositório
+
+```bash
+git clone https://github.com/PedroLVA/AngularSpringApplication.git
+```
+### 2. Navegue até a pasta front
+
+```bash
+cd front
+```
+### 3. Instalando Dependências
+
+```bash
+npm install
+```
+
+### 4. Executando o Frontend
+
+```bash
+ng serve
+```
+A aplicação estará disponível em http://localhost:4200.
+<br><br><br>
+## Configurando Backend
+
+### 1. Navegue até a pasta back
+
+```bash
+cd ../backend
+```
+
+### 2. Configure o Docker
+Certifique-se de ter o arquivo docker-compose.yml configurado corretamente para o seu banco de dados e a aplicação Spring Boot.
+
+### 3. Executando o Backend com Dockek
+
+```bash
+docker-compose up --build
+```
+Isso irá construir a imagem e iniciar o container do backend. A aplicação estará disponível em http://localhost:8080.
+<br>
+
+## Após isso, siga os seguintes passos.
+
+- Vá até a aba de login.
+- Tente logar com as credênciais:
+  <br>usuário: *admin*
+  <br>senha: *admin*
+
+
+## Estrutura do Projeto
+
+```plaintext
+roommates/
+│
+├── front/           # Código-fonte do frontend (Angular)
+│   ├── src/            # Diretório principal com componentes, serviços, etc.
+│   ├── package.json     # Dependências e scripts do Angular
+│   └── ...
+│
+└── back/            # Código-fonte do backend (Spring Boot)
+    ├── src/            # Diretório principal com controladores, serviços, etc.
+    ├── Dockerfile      # Arquivo para construir a imagem do Docker
+    ├── docker-compose.yml # Configuração dos serviços do Docker
+    └── ...
+```
+
+
