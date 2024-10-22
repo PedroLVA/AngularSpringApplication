@@ -1,4 +1,4 @@
-# Aplicação CRUD Bootstrap/Angular
+# Aplicação CRUD Spring Boot/Angular
 
  Este projeto é uma aplicação simples de CRUD de produtos.
 
