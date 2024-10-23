@@ -2,7 +2,7 @@
 
  Este projeto é uma aplicação simples de CRUD de produtos.
 
-## Tecnologias Utilizadas
+## Tecnologias Utilizadas:
 
 - **Frontend:** Angular
 - **Backend:** Spring Boot
