@@ -57,7 +57,7 @@ cd ../backend
 ### 2. Configure o Docker
 Certifique-se de ter o arquivo docker-compose.yml configurado corretamente para o seu banco de dados e a aplicação Spring Boot.
 
-### 3. Executando o Backend com Dockek
+### 3. Executando o Backend com Docker
 
 ```bash
 docker-compose up --build
