@@ -1,102 +1,84 @@
-# Aplicação CRUD Spring Boot/Angular
+# 🚀 Aplicação CRUD de Produtos - Spring Boot & Angular
 
- Este projeto é uma aplicação simples de CRUD de produtos.
+## 📋 Visão Geral
+Aplicação completa de Gerenciamento de Produtos desenvolvida com tecnologias modernas, para fins educacionais.
 
-## Tecnologias Utilizadas:
+## 🛠️ Tecnologias Utilizadas
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)
 
-- **Frontend:** Angular
-- **Backend:** Spring Boot
-- **Banco de Dados:** PostgreSQL
-- **Contêinerização:** Docker
-- **Autenticação:** JWT
+## 🔍 Recursos Principais
+- 🖥️ Interface de usuário moderna com Angular
+- 🔒 Autenticação segura via JWT
+- 📦 Gerenciamento completo de produtos
+- 🐳 Contêinerização com Docker
+- 💾 Persistência de dados com PostgreSQL
 
-## Pré-requisitos
-
-Antes de iniciar, verifique se você possui as seguintes ferramentas instaladas:
-
-- **Node.js** e **npm**: [Instalar Node.js](https://nodejs.org/)
-- **Docker** e **Docker Compose**: [Instalar Docker](https://docs.docker.com/get-docker/)
-- **Angular CLI** (globalmente):  
+## 📋 Pré-requisitos
+Antes de começar, instale:
+- 📦 **Node.js** e **npm**: [Baixar Node.js](https://nodejs.org/)
+- 🐳 **Docker** e **Docker Compose**: [Instalar Docker](https://docs.docker.com/get-docker/)
+- 🅰️ **Angular CLI** (instalação global):  
   ```bash
   npm install -g @angular/cli
   ```
 
-## Configurando Frontend
+## 🚀 Configuração do Projeto
 
-### 1. Clonar o Repositório
-
+### Frontend (Angular)
 ```bash
+# Clonar o repositório
 git clone https://github.com/PedroLVA/AngularSpringApplication.git
-```
-### 2. Navegue até a pasta front
 
-```bash
+# Navegar para o diretório frontend
 cd front
-```
-### 3. Instalando Dependências
 
-```bash
+# Instalar dependências
 npm install
-```
 
-### 4. Executando o Frontend
-
-```bash
+# Iniciar servidor de desenvolvimento
 ng serve
 ```
-A aplicação estará disponível em http://localhost:4200.
-<br><br><br>
-## Configurando Backend
+🌐 Acesso: http://localhost:4200
 
-### 1. Navegue até a pasta back
-
+### Backend (Spring Boot)
 ```bash
+# Navegar para o diretório backend
 cd ../backend
-```
 
-### 2. Configure o Docker
-Certifique-se de ter o arquivo docker-compose.yml configurado corretamente para o seu banco de dados e a aplicação Spring Boot.
-
-### 3. Executando o Backend com Docker
-
-```bash
+# Construir e iniciar contêineres Docker
 docker-compose up --build
 ```
-Isso irá construir a imagem e iniciar o container do backend. A aplicação estará disponível em http://localhost:8080.
-<br>
+🖥️ Acesso: http://localhost:8080
 
-## Após isso, siga os seguintes passos.
+## 🔐 Credenciais de Acesso
+- **Usuário:** *admin*
+- **Senha:** *admin*
 
-- Vá até a aba de login.
-- Tente logar com as credênciais:
-  <br>usuário: *admin*
-  <br>senha: *admin*
-
-
-## Estrutura do Projeto
-
-```plaintext
+## 📂 Estrutura do Projeto
+```
 roommates/
 │
-├── front/           # Código-fonte do frontend (Angular)
-│   ├── src/            # Diretório principal com componentes, serviços, etc.
-│   ├── package.json     # Dependências e scripts do Angular
-│   └── ...
+├── front/           # Frontend Angular
+│   ├── src/         # Código-fonte principal
+│   └── package.json # Configurações de dependências
 │
-└── back/            # Código-fonte do backend (Spring Boot)
-    ├── src/            # Diretório principal com controladores, serviços, etc.
-    ├── Dockerfile      # Arquivo para construir a imagem do Docker
-    ├── docker-compose.yml # Configuração dos serviços do Docker
-    └── ...
+└── back/            # Backend Spring Boot
+    ├── src/         # Código-fonte principal
+    ├── Dockerfile   # Configuração de build Docker
+    └── docker-compose.yml # Orquestração de serviços
 ```
 
-![image](https://github.com/user-attachments/assets/4c50fe8b-4a35-4164-9b43-374962e15140)
-![image](https://github.com/user-attachments/assets/570bc82c-9233-486b-bca1-0fb977deb3cc)
-![image](https://github.com/user-attachments/assets/3e390930-95e5-4c92-97f0-d73edc9268d5)
-![image](https://github.com/user-attachments/assets/ee99382d-a889-47d9-9b55-1c3fbe4968a6)
-![image](https://github.com/user-attachments/assets/696c40ea-7371-4a2a-9be7-548802ab85b5)
+## 📸 Capturas de Tela
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/4c50fe8b-4a35-4164-9b43-374962e15140" width="400" alt="Captura de Tela 1">
+  <img src="https://github.com/user-attachments/assets/570bc82c-9233-486b-bca1-0fb977deb3cc" width="400" alt="Captura de Tela 2">
+</div>
 
-
-
-
-
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/3e390930-95e5-4c92-97f0-d73edc9268d5" width="400" alt="Captura de Tela 3">
+  <img src="https://github.com/user-attachments/assets/ee99382d-a889-47d9-9b55-1c3fbe4968a6" width="400" alt="Captura de Tela 4">
+</div>
